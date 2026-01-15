@@ -1,0 +1,24 @@
+syntax = "proto3";
+option csharp_namespace = "ProjectName.CheckerService.Grpc";
+
+package checker;
+
+// The Checker Service validates artifacts against quality constraints.
+service Checker {
+  // Performs static analysis and validation
+  rpc ValidateArtifact (CheckRequest) returns (CheckReply);
+}
+
+// The artifact to validate
+message CheckRequest {
+  string artifact_id = 1;
+  string content = 2;
+  string artifact_type = 3;
+}
+
+// The validation report
+message CheckReply {
+  bool is_valid = 1;
+  repeated string issues = 2; // List of warnings/errors
+  double confidence_score = 3; // 0.0 to 100.0
+}

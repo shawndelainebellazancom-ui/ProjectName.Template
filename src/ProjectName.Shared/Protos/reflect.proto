@@ -1,0 +1,26 @@
+
+syntax = "proto3";
+
+// Defines the namespace for the generated C# code
+option csharp_namespace = "ProjectName.ReflectorService.Grpc";
+
+package reflector;
+
+// The Reflector Service performs meta-cognition on the cycle.
+service Reflector {
+  // Analyzes the result to determine if the loop should continue
+  rpc AnalyzeCycle (ReflectRequest) returns (ReflectReply);
+}
+
+// Input: The result of the Check phase
+message ReflectRequest {
+  bool is_valid = 1;
+  repeated string issues = 2;
+  double confidence_score = 3;
+}
+
+// Output: The decision for the next cycle
+message ReflectReply {
+  string insight = 1; // Human-readable analysis
+  string optimized_intent = 2; // If present, this triggers the next loop (The Strange Loop)
+}

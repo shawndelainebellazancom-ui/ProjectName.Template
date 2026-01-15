@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="PrintProjectInfo" BeforeTargets="Build">
+    <Message Text="Building $(MSBuildProjectName) in configuration $(Configuration)..." Importance="high" />
+  </Target>
+</Project>

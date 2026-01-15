@@ -1,0 +1,25 @@
+syntax = "proto3";
+option csharp_namespace = "ProjectName.MakerService.Grpc";
+
+
+package maker;
+
+// The Maker Service materializes plans into concrete artifacts.
+service Maker {
+  // Executes the plan to create code/docs/config
+  rpc MakeArtifact (MakeRequest) returns (MakeReply);
+}
+
+// Represents the instructions for creation
+message MakeRequest {
+  string plan_id = 1;
+  repeated string steps = 2;
+  map<string, string> resources = 3;
+}
+
+// Represents the materialized output
+message MakeReply {
+  string artifact_id = 1;
+  string content = 2;
+  string artifact_type = 3; // e.g., "C#", "JSON", "Markdown"
+}

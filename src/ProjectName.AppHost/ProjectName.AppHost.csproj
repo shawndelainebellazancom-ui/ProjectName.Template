@@ -1,0 +1,26 @@
+<!-- 
+  PMCR-O ORCHESTRATOR
+  
+  The "God Node". Defines the topology of the system.
+  SDK Version is implicit to avoid conflict with installed workload.
+-->
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+<PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Framework and global settings inherited from Directory.Build.props -->
+    <UserSecretsId>pmcr-company-orchestrator-secrets</UserSecretsId>
+	<NoWarn>$(NoWarn);NU1507;NU1605</NoWarn>
+
+</PropertyGroup>
+
+<ItemGroup>
+  <ProjectReference Include="..\ProjectName.CheckerService\ProjectName.CheckerService.csproj" />
+  <ProjectReference Include="..\ProjectName.MakerService\ProjectName.MakerService.csproj" />
+  <ProjectReference Include="..\ProjectName.McpServer\ProjectName.McpServer.csproj" />
+  <ProjectReference Include="..\ProjectName.OrchestrationApi\ProjectName.OrchestrationApi.csproj" />
+  <ProjectReference Include="..\ProjectName.PlannerService\ProjectName.PlannerService.csproj" />
+  <ProjectReference Include="..\ProjectName.ReflectorService\ProjectName.ReflectorService.csproj" />
+</ItemGroup>
+
+</Project>

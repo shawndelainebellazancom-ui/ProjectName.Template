@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <UserSecretsId>c4b75dda-f398-4e9b-9bdd-fb58bf75e01f</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+	  <Protobuf Include="..\ProjectName.Shared\Protos\make.proto" GrpcServices="Server" Link="Protos\make.proto" />
+
+	  <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

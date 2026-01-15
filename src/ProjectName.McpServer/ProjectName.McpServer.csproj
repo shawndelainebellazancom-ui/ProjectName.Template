@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ModelContextProtocol.AspNetCore" />
+		<PackageReference Include="Grpc.Net.ClientFactory" />
+		<PackageReference Include="Google.Protobuf" />
+		<PackageReference Include="Grpc.Tools" PrivateAssets="All" />
+		<PackageReference Include="Serilog.AspNetCore" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+	</ItemGroup>
+
+	<!-- Link Protos as Client -->
+	<ItemGroup>
+		<Protobuf Include="..\ProjectName.Shared\Protos\plan.proto" GrpcServices="Client" Link="Protos\plan.proto" />
+		<Protobuf Include="..\ProjectName.Shared\Protos\make.proto" GrpcServices="Client" Link="Protos\make.proto" />
+		<Protobuf Include="..\ProjectName.Shared\Protos\check.proto" GrpcServices="Client" Link="Protos\check.proto" />
+		<Protobuf Include="..\ProjectName.Shared\Protos\reflect.proto" GrpcServices="Client" Link="Protos\reflect.proto" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+<Solution>
+  <Project Path="src/ProjectName.AppHost/ProjectName.AppHost.csproj" />
+  <Project Path="src/ProjectName.Application/ProjectName.Application.csproj" Id="85268879-58dd-44ce-8653-8ca4a41ecd82" />
+  <Project Path="src/ProjectName.CheckerService/ProjectName.CheckerService.csproj" />
+  <Project Path="src/ProjectName.MakerService/ProjectName.MakerService.csproj" />
+  <Project Path="src/ProjectName.McpServer/ProjectName.McpServer.csproj" />
+  <Project Path="src/ProjectName.OrchestrationApi/ProjectName.OrchestrationApi.csproj" />
+  <Project Path="src/ProjectName.PlannerService/ProjectName.PlannerService.csproj" />
+  <Project Path="src/ProjectName.ReflectorService/ProjectName.ReflectorService.csproj" />
+  <Project Path="src/ProjectName.ServiceDefaults/ProjectName.ServiceDefaults.csproj" />
+  <Project Path="src/ProjectName.Shared/ProjectName.Shared.csproj" Id="a22c0e5f-8d5c-450d-977e-163d6e53bdf5" />
+</Solution>

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+// Defines the namespace for the generated C# code
+option csharp_namespace = "ProjectName.PlannerService.Grpc";
+
+package planner;
+
+// The Planning Service decomposes abstract intents into actionable steps.
+service Planner {
+  // Transforms an Intent into a Plan
+  rpc CreatePlan (IntentRequest) returns (PlanReply);
+}
+
+// Represents the Seed Intent
+message IntentRequest {
+  string id = 1;
+  string content = 2;
+  map<string, string> context = 3;
+}
+
+// Represents the Strategic Plan
+message PlanReply {
+  string id = 1;
+  string original_intent_id = 2;
+  repeated string steps = 3;
+  map<string, string> resources = 4;
+}
