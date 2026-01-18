@@ -1,0 +1,4919 @@
+==============================================================================
+PROJECT TOPOLOGY (Tree)
+==============================================================================
+└── 📁 .github/
+    └── 📁 workflows/
+└── 📁 .template.config/
+        📄 template.json
+└── 📁 scripts/
+└── 📁 src/
+    └── 📁 ProjectName.AppHost/
+        └── 📁 Properties/
+                📄 launchSettings.json
+            📄 AppHost.cs
+            📄 appsettings.Development.json
+            📄 appsettings.json
+            📄 ProjectName.AppHost.csproj
+    └── 📁 ProjectName.Application/
+        └── 📁 Interfaces/
+            📄 Class1.cs
+            📄 ProjectName.Application.csproj
+    └── 📁 ProjectName.CheckerService/
+        └── 📁 Properties/
+                📄 launchSettings.json
+        └── 📁 Protos/
+                📄 check.proto
+        └── 📁 Services/
+                📄 CheckerService.cs
+        └── 📁 Tools/
+            📄 appsettings.Development.json
+            📄 appsettings.json
+            📄 Dockerfile
+            📄 Program.cs
+            📄 ProjectName.CheckerService.csproj
+    └── 📁 ProjectName.MakerService/
+        └── 📁 Properties/
+                📄 launchSettings.json
+        └── 📁 Protos/
+                📄 make.proto
+        └── 📁 Services/
+                📄 MakerService.cs
+            📄 appsettings.Development.json
+            📄 appsettings.json
+            📄 Dockerfile
+            📄 Program.cs
+            📄 ProjectName.MakerService.csproj
+    └── 📁 ProjectName.McpServer/
+        └── 📁 Domain/
+                📄 BrowserService.cs
+                📄 CompilerService.cs
+                📄 InspectorService.cs
+        └── 📁 Properties/
+                📄 launchSettings.json
+        └── 📁 Tools/
+                📄 McpToolBase.cs
+                📄 SovereignTools.cs
+            📄 appsettings.Development.json
+            📄 appsettings.json
+            📄 Dockerfile
+            📄 Program.cs
+            📄 ProjectName.McpServer.csproj
+    └── 📁 ProjectName.OrchestrationApi/
+        └── 📁 Clients/
+                📄 ServiceClients.cs
+        └── 📁 Controllers/
+                📄 CheckerController.cs
+                📄 MakerController.cs
+                📄 OrchestratorController.cs
+                📄 PlannerController.cs
+                📄 ReflectorController.cs
+        └── 📁 Properties/
+                📄 launchSettings.json
+        └── 📁 Services/
+                📄 OrchestrationService.cs
+            📄 appsettings.Development.json
+            📄 appsettings.json
+            📄 Program.cs
+            📄 ProjectName.OrchestrationApi.csproj
+    └── 📁 ProjectName.PlannerService/
+        └── 📁 Properties/
+                📄 launchSettings.json
+        └── 📁 Protos/
+                📄 plan.proto
+        └── 📁 Services/
+                📄 PlannerService.cs
+                📄 PlannerServiceLog.cs
+        └── 📁 Tools/
+                📄 ResearchTool.cs
+            📄 appsettings.Development.json
+            📄 appsettings.json
+            📄 Program.cs
+            📄 ProjectName.PlannerService.csproj
+    └── 📁 ProjectName.ReflectorService/
+        └── 📁 Properties/
+                📄 launchSettings.json
+        └── 📁 Protos/
+                📄 reflect.proto
+        └── 📁 Services/
+                📄 ReflectorService.cs
+            📄 appsettings.Development.json
+            📄 appsettings.json
+            📄 Dockerfile
+            📄 Program.cs
+            📄 ProjectName.ReflectorService.csproj
+    └── 📁 ProjectName.ServiceDefaults/
+            📄 Extensions.cs
+            📄 ProjectName.ServiceDefaults.csproj
+    └── 📁 ProjectName.Shared/
+        └── 📁 Cognitive/
+                📄 CognitiveFrame.cs
+                📄 Components.cs
+                📄 PromptRenderer.cs
+        └── 📁 Models/
+                📄 DomainModels.cs
+        └── 📁 Protos/
+            📄 ProjectName.Shared.csproj
+    📄 Directory.Build.props
+    📄 Directory.Build.targets
+    📄 Directory.Packages.props
+    📄 nuget.config
+    📄 ProjectName_Collection.json
+    📄 README.md
+
+==============================================================================
+SOURCE CODE INGESTION
+==============================================================================
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\.template.config
+------------------------------------------------------------------------------
+[EMPTY FILE]
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\.template.config\template.json
+------------------------------------------------------------------------------
+[EMPTY FILE]
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.AppHost\Properties\launchSettings.json
+------------------------------------------------------------------------------
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://projectname.dev.localhost:17200;http://projectname.dev.localhost:15253",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21132",
+        "ASPIRE_DASHBOARD_MCP_ENDPOINT_URL": "https://localhost:23039",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22106"
+      }
+    },
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://projectname.dev.localhost:15253",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "http://localhost:19086",
+        "ASPIRE_DASHBOARD_MCP_ENDPOINT_URL": "http://localhost:18005",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "http://localhost:20115"
+      }
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.AppHost\AppHost.cs
+------------------------------------------------------------------------------
+var builder = DistributedApplication.CreateBuilder(args);
+
+// 1. Define Services
+var planner = builder.AddProject<Projects.ProjectName_PlannerService>("planner-service");
+var maker = builder.AddProject<Projects.ProjectName_MakerService>("maker-service");
+var checker = builder.AddProject<Projects.ProjectName_CheckerService>("checker-service");
+var reflector = builder.AddProject<Projects.ProjectName_ReflectorService>("reflector-service");
+
+// 2. Define MCP Server (Save to variable)
+var mcpServer = builder.AddProject<Projects.ProjectName_McpServer>("mcp-server")
+    .WithReference(planner)
+    .WithReference(maker)
+    .WithReference(checker)
+    .WithReference(reflector);
+
+// 3. WIRE CHECKER TO MCP (Crucial Step)
+checker.WithReference(mcpServer);
+
+// 4. Define Orchestrator (API Gateway)
+builder.AddProject<Projects.ProjectName_OrchestrationApi>("orchestration-api")
+    .WithReference(planner)
+    .WithReference(maker)
+    .WithReference(checker)
+    .WithReference(reflector);
+
+builder.Build().Run();
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.AppHost\appsettings.Development.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.AppHost\appsettings.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+      "Aspire.Hosting.Dcp": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.AppHost\ProjectName.AppHost.csproj
+------------------------------------------------------------------------------
+<!-- 
+  PMCR-O ORCHESTRATOR
+  
+  The "God Node". Defines the topology of the system.
+  SDK Version is implicit to avoid conflict with installed workload.
+-->
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+<PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Framework and global settings inherited from Directory.Build.props -->
+    <UserSecretsId>pmcr-company-orchestrator-secrets</UserSecretsId>
+	<NoWarn>$(NoWarn);NU1507;NU1605</NoWarn>
+
+</PropertyGroup>
+
+<ItemGroup>
+  <ProjectReference Include="..\ProjectName.CheckerService\ProjectName.CheckerService.csproj" />
+  <ProjectReference Include="..\ProjectName.MakerService\ProjectName.MakerService.csproj" />
+  <ProjectReference Include="..\ProjectName.McpServer\ProjectName.McpServer.csproj" />
+  <ProjectReference Include="..\ProjectName.OrchestrationApi\ProjectName.OrchestrationApi.csproj" />
+  <ProjectReference Include="..\ProjectName.PlannerService\ProjectName.PlannerService.csproj" />
+  <ProjectReference Include="..\ProjectName.ReflectorService\ProjectName.ReflectorService.csproj" />
+</ItemGroup>
+
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.Application\Class1.cs
+------------------------------------------------------------------------------
+namespace ProjectName.Application
+{
+    public class Class1
+    {
+
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.Application\ProjectName.Application.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+</Project>
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\Properties\launchSettings.json
+------------------------------------------------------------------------------
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5173"
+    },
+    "https": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7140;http://localhost:5173"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\Protos\check.proto
+------------------------------------------------------------------------------
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.CheckerService.Grpc";
+
+package checker;
+
+// =============================================================================
+// PMCR-O CHECKER SERVICE
+// Phase C: Validation - Ensures artifacts meet quality constraints
+// =============================================================================
+
+service Checker {
+  // Core Validation Operation
+  rpc ValidateArtifact (CheckRequest) returns (CheckReply);
+  
+  // Batch Validation
+  rpc ValidateBatch (BatchCheckRequest) returns (BatchCheckReply);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+message CheckRequest {
+  string artifact_id = 1;
+  string content = 2;
+  string artifact_type = 3;
+  repeated ValidationRule rules = 4;
+  map<string, string> context = 5;
+}
+
+message CheckReply {
+  bool is_valid = 1;
+  repeated string issues = 2;
+  double confidence_score = 3;
+  repeated ValidationResult results = 4;
+  string summary = 5;
+  int64 timestamp = 6;
+}
+
+message ValidationRule {
+  string rule_id = 1;
+  string rule_type = 2;  // e.g., "syntax", "security", "performance"
+  string description = 3;
+  map<string, string> parameters = 4;
+}
+
+message ValidationResult {
+  string rule_id = 1;
+  bool passed = 2;
+  string message = 3;
+  string severity = 4;  // "error", "warning", "info"
+  string location = 5;  // Line number or path
+}
+
+// --- Batch Validation ---
+
+message BatchCheckRequest {
+  repeated CheckRequest requests = 1;
+}
+
+message BatchCheckReply {
+  repeated CheckReply replies = 1;
+  int32 total_valid = 2;
+  int32 total_invalid = 3;
+}
+
+// --- Health Check ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\Services\CheckerService.cs
+------------------------------------------------------------------------------
+using Grpc.Core;
+using Microsoft.Agents.AI;
+using ModelContextProtocol.Client;
+using ProjectName.CheckerService.Grpc;
+using System.Globalization;
+using System.Reflection; // Required for the fix
+using System.Text;
+
+namespace ProjectName.CheckerService.Services;
+
+public partial class CheckerService(
+    AIAgent checkerAgent,
+    McpClientFactory mcpClientFactory,
+    ILogger<CheckerService> logger) : Checker.CheckerBase
+{
+    private static readonly char[] _lineSeparators = ['\n', '\r'];
+
+    [LoggerMessage(EventId = 200, Level = LogLevel.Information, Message = "gRPC CHECKER: Validating Artifact {ArtifactId}")]
+    private partial void LogValidatingArtifact(string artifactId);
+
+    [LoggerMessage(EventId = 201, Level = LogLevel.Error, Message = "Validation Logic Failed")]
+    private partial void LogValidationFailure(Exception ex);
+
+    [LoggerMessage(EventId = 202, Level = LogLevel.Error, Message = "Failed to connect to MCP Server or execute tool.")]
+    private partial void LogMcpFailure(Exception ex);
+
+    public override async Task<CheckReply> ValidateArtifact(CheckRequest request, ServerCallContext context)
+    {
+        LogValidatingArtifact(request.ArtifactId);
+
+        try
+        {
+            var forensicReport = await GatherForensicsAsync(request.ArtifactType, request.Content);
+
+            var prompt = string.Format(
+                CultureInfo.InvariantCulture,
+                "ARTIFACT TYPE: {0}\n\n--- CONTENT ---\n{1}\n\n--- FORENSIC REPORT ---\n{2}",
+                request.ArtifactType,
+                request.Content,
+                forensicReport
+            );
+
+            var response = await checkerAgent.RunAsync(prompt, cancellationToken: context.CancellationToken);
+            var analysis = response.ToString();
+
+            var lines = analysis.Split(_lineSeparators, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(l => l.Trim())
+                                .ToList();
+
+            bool isValid = false;
+            var issues = new List<string>();
+
+            if (lines.Count > 0)
+            {
+                var verdict = lines[0].ToUpperInvariant();
+                if (verdict.Contains("INVALID", StringComparison.Ordinal))
+                {
+                    isValid = false;
+                    issues.AddRange(lines.Skip(1));
+                }
+                else if (verdict.Contains("VALID", StringComparison.Ordinal))
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    isValid = !analysis.Contains("error", StringComparison.OrdinalIgnoreCase);
+                    issues.Add("Review: " + analysis);
+                }
+            }
+
+            var reply = new CheckReply
+            {
+                IsValid = isValid,
+                ConfidenceScore = isValid ? 95.0 : 40.0,
+                Summary = isValid ? "Passed Checks" : "Failed Checks"
+            };
+
+            reply.Issues.AddRange(issues);
+            return reply;
+        }
+        catch (Exception ex)
+        {
+            LogValidationFailure(ex);
+            return new CheckReply { IsValid = false, Summary = "Internal Validation Error: " + ex.Message };
+        }
+    }
+
+    private async Task<string> GatherForensicsAsync(string type, string content)
+    {
+        try
+        {
+            await using var mcpClient = await mcpClientFactory();
+
+            if (type.Contains("C#", StringComparison.OrdinalIgnoreCase) || type.Contains("Code", StringComparison.OrdinalIgnoreCase))
+            {
+                var args = new Dictionary<string, object?> { ["code"] = content };
+                var result = await mcpClient.CallToolAsync("build_code", args);
+
+                return ExtractTextFromContent(result.Content?.FirstOrDefault());
+            }
+            else if (type.Contains("Url", StringComparison.OrdinalIgnoreCase) || type.Contains("Web", StringComparison.OrdinalIgnoreCase))
+            {
+                if (Uri.IsWellFormedUriString(content, UriKind.Absolute))
+                {
+                    var args = new Dictionary<string, object?> { ["url"] = content };
+                    var result = await mcpClient.CallToolAsync("take_snapshot", args);
+
+                    return ExtractTextFromContent(result.Content?.FirstOrDefault());
+                }
+            }
+
+            return "No specific tools available for this artifact type.";
+        }
+        catch (Exception ex)
+        {
+            LogMcpFailure(ex);
+            return $"Tool Execution Failed: {ex.Message}";
+        }
+    }
+
+    private static string ExtractTextFromContent(object? contentBlock)
+    {
+        if (contentBlock == null) return "No content returned.";
+
+        // Universal extractor: Checks for "Text" property via reflection to bypass namespace issues
+        var textProp = contentBlock.GetType().GetProperty("Text");
+        if (textProp != null)
+        {
+            return textProp.GetValue(contentBlock)?.ToString() ?? "Empty Text";
+        }
+
+        return contentBlock.ToString() ?? "Unknown Content";
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\appsettings.Development.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\appsettings.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "Kestrel": {
+    "EndpointDefaults": {
+      "Protocols": "Http2"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\Dockerfile
+------------------------------------------------------------------------------
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
+COPY ["Directory.Build.targets", "."]
+COPY ["nuget.config", "."]
+COPY ["src/ProjectName.CheckerService/ProjectName.CheckerService.csproj", "src/ProjectName.CheckerService/"]
+RUN dotnet restore "./src/ProjectName.CheckerService/ProjectName.CheckerService.csproj"
+COPY . .
+WORKDIR "/src/src/ProjectName.CheckerService"
+RUN dotnet build "./ProjectName.CheckerService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./ProjectName.CheckerService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ProjectName.CheckerService.dll"]
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\Program.cs
+------------------------------------------------------------------------------
+using Microsoft.Agents.AI;
+using Microsoft.Extensions.AI;
+using ModelContextProtocol.Client;
+using OllamaSharp;
+using ProjectName.CheckerService;
+using ProjectName.CheckerService.Services;
+using System.Globalization;
+using System.Net.Http;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+// --- 1. THE BRAIN ---
+var ollamaUrl = builder.Configuration["Ollama:Endpoint"] ?? "http://host.docker.internal:11434";
+var model = builder.Configuration["Ollama:Model"] ?? "qwen2.5-coder";
+builder.Services.AddChatClient(new OllamaApiClient(new Uri(ollamaUrl), model));
+
+// --- 2. THE CRITIC AGENT ---
+builder.Services.AddSingleton<AIAgent>(sp =>
+{
+    var chatClient = sp.GetRequiredService<IChatClient>();
+    return chatClient.CreateAIAgent(
+        name: "Checker",
+        instructions: """
+            IDENTITY: You are a Senior Code Reviewer.
+            TASK: Validate the artifact.
+            INPUT: You will receive the Artifact Content AND a 'Forensic Report' from the compiler/tools.
+            CRITICAL: If the Forensic Report says 'Build Failed', you MUST mark it as INVALID.
+            OUTPUT FORMAT:
+            - VALID or INVALID
+            - List of issues.
+            """);
+});
+
+// --- 3. THE HANDS (MCP CLIENT) ---
+builder.Services.AddSingleton<McpClientFactory>(sp =>
+{
+    // Get the Factory that knows about Service Discovery
+    var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
+    var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+
+    return async () =>
+    {
+        // Use the Aspire Resource Name (must match AppHost)
+        var mcpUrl = "https://mcp-server/sse";
+
+        // Create a SMART client that resolves service names
+        var httpClient = httpClientFactory.CreateClient();
+
+        var transport = new HttpClientTransport(new HttpClientTransportOptions
+        {
+            Endpoint = new Uri(mcpUrl)
+        }, httpClient, loggerFactory); // Pass the smart client here
+
+        var client = await McpClient.CreateAsync(transport, new McpClientOptions(), loggerFactory: loggerFactory);
+
+        return client;
+    };
+});
+
+builder.Services.AddGrpc();
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+app.MapGrpcService<ProjectName.CheckerService.Services.CheckerService>();
+app.MapGet("/", () => "Checker Service (Intelligent + MCP Connected)");
+
+app.Run();
+
+namespace ProjectName.CheckerService
+{
+    public delegate Task<McpClient> McpClientFactory();
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.CheckerService\ProjectName.CheckerService.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<UserSecretsId>0ea0cb4b-e5f4-45e7-909f-512c8ff0d210</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\check.proto" GrpcServices="Server" />
+		<PackageReference Include="Grpc.AspNetCore" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+		<!-- THE MIND -->
+		<PackageReference Include="Microsoft.Extensions.AI" />
+		<PackageReference Include="ModelContextProtocol" />
+		<PackageReference Include="OllamaSharp" />
+		<PackageReference Include="Microsoft.Agents.AI" />
+		
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+	</ItemGroup>
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\Properties\launchSettings.json
+------------------------------------------------------------------------------
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5141"
+    },
+    "https": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7169;http://localhost:5141"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\Protos\make.proto
+------------------------------------------------------------------------------
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.MakerService.Grpc";
+
+package maker;
+
+// =============================================================================
+// PMCR-O MAKER SERVICE
+// Phase M: Materialization - Converts plans into concrete artifacts
+// =============================================================================
+
+service Maker {
+  // Core Making Operation
+  rpc MakeArtifact (MakeRequest) returns (MakeReply);
+  
+  // Streaming variant for long-running generations
+  rpc StreamArtifact (MakeRequest) returns (stream MakeProgressUpdate);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+message MakeRequest {
+  string plan_id = 1;
+  repeated string steps = 2;
+  map<string, string> resources = 3;
+  string artifact_type = 4;  // e.g., "CSharp", "Python", "Markdown"
+  map<string, string> parameters = 5;
+}
+
+message MakeReply {
+  string artifact_id = 1;
+  string plan_id = 2;
+  string content = 3;
+  string artifact_type = 4;
+  map<string, string> metadata = 5;
+  int64 timestamp = 6;
+  bool success = 7;
+  string error_message = 8;
+}
+
+message MakeProgressUpdate {
+  enum Status {
+    STARTED = 0;
+    PROCESSING = 1;
+    COMPLETED = 2;
+    FAILED = 3;
+  }
+  
+  Status status = 1;
+  string message = 2;
+  int32 progress_percent = 3;
+  string partial_content = 4;
+}
+
+// --- Health Check ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\Services\MakerService.cs
+------------------------------------------------------------------------------
+using Grpc.Core;
+using Microsoft.Agents.AI;
+using ProjectName.MakerService.Grpc;
+using System.Globalization;
+using System.Text;
+
+namespace ProjectName.MakerService.Services;
+
+public partial class MakerService(
+    AIAgent makerAgent,
+    ILogger<MakerService> logger) : Maker.MakerBase
+{
+    // --- HIGH PERFORMANCE LOGGING ---
+    [LoggerMessage(EventId = 100, Level = LogLevel.Information, Message = "gRPC MAKER: Received Plan {PlanId}. Delegating to Agent...")]
+    private partial void LogPlanReceived(string planId);
+
+    [LoggerMessage(EventId = 101, Level = LogLevel.Error, Message = "Agent Generation Failed")]
+    private partial void LogAgentFailure(Exception ex);
+
+    public override async Task<MakeReply> MakeArtifact(MakeRequest request, ServerCallContext context)
+    {
+        LogPlanReceived(request.PlanId);
+
+        // 1. CONSTRUCT THE CONTEXT
+        var prompt = new StringBuilder();
+
+        // Fix CA1305: Use InvariantCulture
+        prompt.AppendFormat(CultureInfo.InvariantCulture, "--- EXECUTION PLAN (ID: {0}) ---", request.PlanId);
+        prompt.AppendLine();
+
+        foreach (var step in request.Steps)
+        {
+            prompt.AppendFormat(CultureInfo.InvariantCulture, "STEP: {0}\n", step);
+        }
+        prompt.AppendLine();
+        prompt.AppendFormat(CultureInfo.InvariantCulture, "OUTPUT LANGUAGE: {0}\n", request.ArtifactType ?? "Code");
+
+        if (request.Resources.Count > 0)
+        {
+            prompt.AppendLine("CONTEXT:");
+            foreach (var r in request.Resources)
+            {
+                prompt.AppendFormat(CultureInfo.InvariantCulture, "{0}: {1}\n", r.Key, r.Value);
+            }
+        }
+
+        try
+        {
+            // 2. INVOKE THE AGENT
+            // The Agent Framework handles the message history, system prompt, and response parsing.
+            var response = await makerAgent.RunAsync(prompt.ToString(), cancellationToken: context.CancellationToken);
+
+            // 3. EXTRACT CONTENT
+            // The AgentRunResponse.ToString() usually returns the text, or we access the last message.
+            var content = response.ToString();
+
+            // 4. SANITIZE
+            content = CleanArtifact(content);
+
+            // 5. RETURN REALITY
+            return new MakeReply
+            {
+                ArtifactId = Guid.NewGuid().ToString(),
+                PlanId = request.PlanId,
+                Content = content,
+                ArtifactType = request.ArtifactType ?? "Text/Code",
+                Success = true
+            };
+        }
+        catch (Exception ex)
+        {
+            LogAgentFailure(ex);
+            return new MakeReply
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            };
+        }
+    }
+
+    private static string CleanArtifact(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input)) return string.Empty;
+
+        // Fix CA1310: Use StringComparison.Ordinal
+        var lines = input.Split('\n').ToList();
+
+        // Remove start fence (```python or just ```)
+        if (lines.Count > 0 && lines[0].Trim().StartsWith("```", StringComparison.Ordinal))
+            lines.RemoveAt(0);
+
+        // Remove end fence
+        if (lines.Count > 0 && lines[^1].Trim().StartsWith("```", StringComparison.Ordinal))
+            lines.RemoveAt(lines.Count - 1);
+
+        return string.Join("\n", lines).Trim();
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\appsettings.Development.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\appsettings.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "Kestrel": {
+    "EndpointDefaults": {
+      "Protocols": "Http2"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\Dockerfile
+------------------------------------------------------------------------------
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
+COPY ["Directory.Build.targets", "."]
+COPY ["nuget.config", "."]
+COPY ["src/ProjectName.MakerService/ProjectName.MakerService.csproj", "src/ProjectName.MakerService/"]
+RUN dotnet restore "./src/ProjectName.MakerService/ProjectName.MakerService.csproj"
+COPY . .
+WORKDIR "/src/src/ProjectName.MakerService"
+RUN dotnet build "./ProjectName.MakerService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./ProjectName.MakerService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ProjectName.MakerService.dll"]
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\Program.cs
+------------------------------------------------------------------------------
+using Microsoft.Agents.AI;
+using Microsoft.Extensions.AI;
+using OllamaSharp;
+using ProjectName.MakerService.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+// --- 1. THE BRAIN (OLLAMA) ---
+// Using host.docker.internal to reach the host machine's Ollama
+var ollamaUrl = builder.Configuration["Ollama:Endpoint"] ?? "http://host.docker.internal:11434";
+var modelName = builder.Configuration["Ollama:Model"] ?? "qwen2.5-coder";
+
+// Register the raw Chat Client
+builder.Services.AddChatClient(new OllamaApiClient(new Uri(ollamaUrl), modelName));
+
+// --- 2. THE AGENT (THE MAKER) ---
+// We wrap the raw client in a ChatClientAgent with specific instructions.
+builder.Services.AddSingleton<AIAgent>(sp =>
+{
+    var chatClient = sp.GetRequiredService<IChatClient>();
+
+    return chatClient.CreateAIAgent(
+        name: "Maker",
+        instructions: """
+            IDENTITY: You are a high-performance software engineer.
+            TASK: Translate the provided execution plan into production-ready code.
+            CONSTRAINT: Return ONLY the code. Do not wrap in markdown blocks.
+            CRITICAL: ALWAYS wrap methods in a public class. Never return standalone methods.
+            """);
+});
+
+builder.Services.AddGrpc();
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+app.MapGrpcService<MakerService>();
+app.MapGet("/", () => "Maker Service (Agent Framework) is ONLINE.");
+
+app.Run();
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.MakerService\ProjectName.MakerService.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <UserSecretsId>c4b75dda-f398-4e9b-9bdd-fb58bf75e01f</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\make.proto" GrpcServices="Server" />
+    <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    
+    <!-- THE MIND -->
+    <PackageReference Include="Microsoft.Extensions.AI" />
+    <PackageReference Include="OllamaSharp" />
+    <PackageReference Include="Microsoft.Agents.AI" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Domain\BrowserService.cs
+------------------------------------------------------------------------------
+using Microsoft.Playwright;
+
+namespace ProjectName.McpServer.Domain;
+
+public partial class BrowserService(ILogger<BrowserService> logger)
+{
+    private IBrowser? _browser;
+
+    [LoggerMessage(EventId = 200, Level = LogLevel.Error, Message = "Failed to launch Playwright. Ensure browsers are installed.")]
+    private partial void LogBrowserError(Exception ex);
+
+    private async Task EnsureBrowserAsync()
+    {
+        if (_browser != null) return;
+
+        try
+        {
+            // Initializes Playwright. 
+            // NOTE: In a fresh environment, this might require running the playwright install script.
+            var playwright = await Playwright.CreateAsync();
+            _browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            {
+                Headless = true
+            });
+        }
+        catch (Exception ex)
+        {
+            LogBrowserError(ex);
+            throw new InvalidOperationException("Browser not available. " + ex.Message);
+        }
+    }
+
+    public async Task<string> ScrapeContentAsync(string url)
+    {
+        await EnsureBrowserAsync();
+        var page = await _browser!.NewPageAsync();
+
+        try
+        {
+            await page.GotoAsync(url);
+
+            // Wait for network idle to handle ASP.NET Core hydration/loading
+            await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+            var content = await page.ContentAsync();
+            return content;
+        }
+        finally
+        {
+            await page.CloseAsync();
+        }
+    }
+
+    public async Task<string> TakeSnapshotAsync(string url)
+    {
+        await EnsureBrowserAsync();
+        var page = await _browser!.NewPageAsync();
+        try
+        {
+            await page.GotoAsync(url);
+
+            // Wait for network idle here too
+            await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+            var bytes = await page.ScreenshotAsync();
+            return Convert.ToBase64String(bytes);
+        }
+        finally
+        {
+            await page.CloseAsync();
+        }
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Domain\CompilerService.cs
+------------------------------------------------------------------------------
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using System.Globalization;
+using System.Text;
+
+namespace ProjectName.McpServer.Domain;
+
+public partial class CompilerService(ILogger<CompilerService> logger)
+{
+    public byte[]? LastAssemblyBytes { get; private set; }
+    public List<string> LastDiagnostics { get; private set; } = [];
+
+    [LoggerMessage(EventId = 100, Level = LogLevel.Information, Message = "Compiling source code...")]
+    private partial void LogCompiling();
+
+    [LoggerMessage(EventId = 101, Level = LogLevel.Information, Message = "Compilation Success.")]
+    private partial void LogSuccess();
+
+    [LoggerMessage(EventId = 102, Level = LogLevel.Warning, Message = "Compilation Failed.")]
+    private partial void LogFailure();
+
+    public CompilationResult Compile(string sourceCode)
+    {
+        LogCompiling();
+
+        var syntaxTree = CSharpSyntaxTree.ParseText(sourceCode);
+
+        // IDE0305 FIX: Use Collection Expression [...]
+        MetadataReference[] references =
+        [
+            MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof(Console).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location)
+        ];
+
+        var compilation = CSharpCompilation.Create(
+            string.Format(CultureInfo.InvariantCulture, "Dynamic_{0:N}", Guid.NewGuid()),
+            [syntaxTree],
+            references,
+            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+
+        using var ms = new MemoryStream();
+        var result = compilation.Emit(ms);
+
+        LastDiagnostics = result.Diagnostics
+            .Select(d => string.Format(CultureInfo.InvariantCulture, "[{0}] {1}: {2}", d.Severity, d.Id, d.GetMessage(CultureInfo.InvariantCulture)))
+            .ToList();
+
+        if (result.Success)
+        {
+            ms.Seek(0, SeekOrigin.Begin);
+            LastAssemblyBytes = ms.ToArray();
+            LogSuccess();
+            return new CompilationResult(true, "Compilation Successful", LastAssemblyBytes);
+        }
+        else
+        {
+            LogFailure();
+            return new CompilationResult(false, string.Join("\n", LastDiagnostics), null);
+        }
+    }
+}
+
+public record CompilationResult(bool Success, string Message, byte[]? AssemblyBytes);
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Domain\InspectorService.cs
+------------------------------------------------------------------------------
+using Mono.Cecil;
+using System.Globalization;
+using System.Text;
+
+namespace ProjectName.McpServer.Domain;
+
+public class InspectorService
+{
+    public string InspectAssembly(byte[] assemblyBytes)
+    {
+        using var ms = new MemoryStream(assemblyBytes);
+        using var assembly = AssemblyDefinition.ReadAssembly(ms);
+
+        var sb = new StringBuilder();
+        sb.AppendLine(CultureInfo.InvariantCulture, $"ASSEMBLY: {assembly.Name.Name}");
+
+        foreach (var module in assembly.Modules)
+        {
+            sb.AppendLine(CultureInfo.InvariantCulture, $"  MODULE: {module.Name}");
+            foreach (var type in module.Types)
+            {
+                // CA1866: Use char overload for single character check
+                if (type.Name.StartsWith('<')) continue;
+
+                sb.AppendLine(CultureInfo.InvariantCulture, $"    TYPE: {type.FullName}");
+                foreach (var method in type.Methods)
+                {
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"      METHOD: {method.Name} -> {method.ReturnType.Name}");
+                    if (method.HasBody)
+                    {
+                        sb.AppendLine(CultureInfo.InvariantCulture, $"        [IL Size: {method.Body.Instructions.Count} ops]");
+                    }
+                }
+            }
+        }
+        return sb.ToString();
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Properties\launchSettings.json
+------------------------------------------------------------------------------
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5070"
+    },
+    "https": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7184;http://localhost:5070"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Tools\McpToolBase.cs
+------------------------------------------------------------------------------
+using System.ComponentModel; // For [Description]
+using ModelContextProtocol.Server;
+using ProjectName.PlannerService.Grpc;
+using ProjectName.MakerService.Grpc;
+using ProjectName.CheckerService.Grpc;
+using ProjectName.ReflectorService.Grpc;
+using System.Text;
+using System.Globalization;
+
+namespace ProjectName.McpServer.Tools;
+
+[McpServerToolType]
+public partial class McpToolBase(
+    Planner.PlannerClient planner,
+    Maker.MakerClient maker,
+    Checker.CheckerClient checker,
+    Reflector.ReflectorClient reflector,
+    ILogger<McpToolBase> logger)
+{
+    // ------------------------------------------------------------
+    // Logging
+    // ------------------------------------------------------------
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "MCP: Planning intent '{Intent}'")]
+    private partial void LogPlanning(string intent);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "MCP: Making artifact for Plan '{PlanId}'")]
+    private partial void LogMaking(string planId);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "MCP: Checking artifact '{ArtifactId}'")]
+    private partial void LogChecking(string artifactId);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "MCP: Reflecting on cycle (Valid: {Valid})")]
+    private partial void LogReflecting(bool valid);
+
+    // ------------------------------------------------------------
+    // PLAN
+    // ------------------------------------------------------------
+
+    [McpServerTool(Name = "plan")]
+    public async Task<string> Plan(
+        [Description("The goal or intent")] string intent)
+    {
+        LogPlanning(intent);
+
+        var request = new IntentRequest
+        {
+            Id = Guid.NewGuid().ToString(),
+            Content = intent
+        };
+
+        var reply = await planner.CreatePlanAsync(request);
+
+        var sb = new StringBuilder();
+
+        sb.AppendFormat(CultureInfo.InvariantCulture, "Plan ID: {0}", reply.Id).AppendLine();
+        sb.AppendLine("Steps:");
+
+        foreach (var step in reply.Steps)
+        {
+            sb.AppendFormat(CultureInfo.InvariantCulture, "- {0}", step).AppendLine();
+        }
+
+        return sb.ToString();
+    }
+
+    // ------------------------------------------------------------
+    // MAKE
+    // ------------------------------------------------------------
+
+    [McpServerTool(Name = "make")]
+    public async Task<string> Make(
+        [Description("The Plan ID")] string planId)
+    {
+        LogMaking(planId);
+
+        var request = new MakeRequest { PlanId = planId };
+        request.Steps.Add("Execute Plan");
+
+        var reply = await maker.MakeArtifactAsync(request);
+
+        return $"Artifact Created: {reply.ArtifactId} ({reply.ArtifactType})";
+    }
+
+    // ------------------------------------------------------------
+    // CHECK
+    // ------------------------------------------------------------
+
+    [McpServerTool(Name = "check")]
+    public async Task<string> Check(
+        [Description("The Artifact ID")] string artifactId)
+    {
+        LogChecking(artifactId);
+
+        var request = new CheckRequest
+        {
+            ArtifactId = artifactId,
+            Content = "Placeholder Content",
+            ArtifactType = "Unknown"
+        };
+
+        var reply = await checker.ValidateArtifactAsync(request);
+
+        return reply.IsValid
+            ? $"Valid (Score: {reply.ConfidenceScore})"
+            : $"Invalid: {string.Join(", ", reply.Issues)}";
+    }
+
+    // ------------------------------------------------------------
+    // REFLECT
+    // ------------------------------------------------------------
+
+    [McpServerTool(Name = "reflect")]
+    public async Task<string> Reflect(
+        [Description("Is Valid")] bool isValid,
+        [Description("Confidence Score")] double score)
+    {
+        LogReflecting(isValid);
+
+        var request = new ReflectRequest
+        {
+            IsValid = isValid,
+            ConfidenceScore = score
+        };
+
+        var reply = await reflector.AnalyzeCycleAsync(request);
+
+        return string.IsNullOrEmpty(reply.OptimizedIntent)
+            ? "Converged"
+            : $"Iterating. refined_intent: {reply.OptimizedIntent}";
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Tools\SovereignTools.cs
+------------------------------------------------------------------------------
+using Microsoft.Playwright;
+using ModelContextProtocol.Server;
+using ProjectName.McpServer.Domain;
+using System.ComponentModel;
+using System.Threading.Tasks;
+
+namespace ProjectName.McpServer.Tools;
+
+[McpServerToolType]
+public class SovereignTools(
+    CompilerService compiler,
+    InspectorService inspector,
+    BrowserService browser)
+{
+    // --- ROSLYN TOOLS (THE MAKER) ---
+
+    [McpServerTool(Name = "build_code")]
+    [Description("Compiles C# code and checks for errors.")]
+    public Task<string> BuildCode(
+        [Description("C# Source Code")] string code)
+    {
+        var result = compiler.Compile(code);
+        return Task.FromResult(result.Success
+            ? "Build Success. Assembly cached."
+            : $"Build Failed:\n{result.Message}");
+    }
+
+    // --- CECIL TOOLS (THE INSPECTOR) ---
+
+    [McpServerTool(Name = "inspect_last_build")]
+    [Description("Introspects the structure of the last successfully built assembly.")]
+    public Task<string> InspectLastBuild()
+    {
+        if (compiler.LastAssemblyBytes == null) return Task.FromResult("No assembly found. Build code first.");
+
+        var report = inspector.InspectAssembly(compiler.LastAssemblyBytes);
+        return Task.FromResult(report);
+    }
+
+    // --- PLAYWRIGHT TOOLS (THE EYES) ---
+
+    [McpServerTool(Name = "browse_web")]
+    [Description("Navigates to a URL and returns the text content. Useful for reading documentation or scraping data.")]
+    public async Task<string> Browse(
+        [Description("Target URL")] string url)
+    {
+        return await browser.ScrapeContentAsync(url);
+    }
+
+    [McpServerTool(Name = "take_snapshot")]
+    [Description("Captures a visual screenshot of the target URL (Base64). Use this when scraping fails to see what is happening on the screen (e.g., loading spinners, errors).")]
+    public async Task<string> TakeSnapshot(
+        [Description("Target URL")] string url)
+    {
+        var base64 = await browser.TakeSnapshotAsync(url);
+        return $"Snapshot captured for {url}. (Base64 Length: {base64.Length})";
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\appsettings.Development.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\appsettings.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Dockerfile
+------------------------------------------------------------------------------
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
+COPY ["Directory.Build.targets", "."]
+COPY ["nuget.config", "."]
+COPY ["src/ProjectName.McpServer/ProjectName.McpServer.csproj", "src/ProjectName.McpServer/"]
+RUN dotnet restore "./src/ProjectName.McpServer/ProjectName.McpServer.csproj"
+COPY . .
+WORKDIR "/src/src/ProjectName.McpServer"
+RUN dotnet build "./ProjectName.McpServer.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./ProjectName.McpServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ProjectName.McpServer.dll"]
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\Program.cs
+------------------------------------------------------------------------------
+using Microsoft.Extensions.DependencyInjection;
+using ProjectName.McpServer.Domain;
+using ProjectName.McpServer.Tools;
+using ModelContextProtocol.Server;
+using Serilog;
+using System.Globalization;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+// Logging - Configured for Strict Mode (Invariant Culture)
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture));
+
+// 1. REGISTER DOMAIN SERVICES
+builder.Services.AddSingleton<CompilerService>();
+builder.Services.AddSingleton<InspectorService>();
+builder.Services.AddSingleton<BrowserService>();
+
+// 2. MCP SERVER CONFIGURATION
+// We enable both transports:
+// - Stdio: For running via "npx" or Claude Desktop.
+// - Http: For running via Docker, Postman, or HTTP calls (SSE).
+builder.Services.AddMcpServer()
+    .WithStdioServerTransport()
+    .WithHttpTransport() // <--- FIX: Correct method name
+    .WithToolsFromAssembly(typeof(Program).Assembly);
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
+// 3. MAP THE SSE ENDPOINT
+// This allows Postman to connect via "https://localhost:PORT/sse"
+app.MapMcp("/sse"); // <--- FIX: Correct method name
+
+app.MapGet("/", () => "Sovereign MCP Server Online (Transports: STDIO + SSE)");
+
+app.Run();
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.McpServer\ProjectName.McpServer.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- CORE MCP -->
+		<PackageReference Include="ModelContextProtocol.AspNetCore" />
+		<PackageReference Include="Serilog.AspNetCore" />
+
+		<!-- THE BRAIN: ROSLYN -->
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+
+		<!-- THE INSPECTOR: MONO.CECIL -->
+		<PackageReference Include="Mono.Cecil" />
+
+		<!-- THE EYES: PLAYWRIGHT -->
+		<PackageReference Include="Microsoft.Playwright" />
+
+		<!-- PROTO & GRPC -->
+		<PackageReference Include="Grpc.Net.ClientFactory" />
+		<PackageReference Include="Google.Protobuf" />
+		<PackageReference Include="Grpc.Tools" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+	</ItemGroup>
+
+	<!-- MICROSERVICE CLIENTS -->
+	<ItemGroup>
+		<Protobuf Include="..\ProjectName.PlannerService\Protos\plan.proto" GrpcServices="Client" Link="Protos\plan.proto" />
+		<Protobuf Include="..\ProjectName.MakerService\Protos\make.proto" GrpcServices="Client" Link="Protos\make.proto" />
+		<Protobuf Include="..\ProjectName.CheckerService\Protos\check.proto" GrpcServices="Client" Link="Protos\check.proto" />
+		<Protobuf Include="..\ProjectName.ReflectorService\Protos\reflect.proto" GrpcServices="Client" Link="Protos\reflect.proto" />
+	</ItemGroup>
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Clients\ServiceClients.cs
+------------------------------------------------------------------------------
+using System.Net.Http.Json;
+using ProjectName.Shared.Models;
+
+namespace ProjectName.OrchestrationApi.Clients;
+
+/// <summary>
+/// Client for communicating with the Maker microservice.
+/// </summary>
+/// <param name="client">The injected HttpClient.</param>
+public class MakerClient(HttpClient client)
+{
+    /// <summary>
+    /// Sends a plan to the Maker to produce an artifact.
+    /// </summary>
+    public async Task<Artifact?> ExecuteAsync(Plan plan)
+    {
+        var response = await client.PostAsJsonAsync("/make", plan);
+        return await response.Content.ReadFromJsonAsync<Artifact>();
+    }
+}
+
+/// <summary>
+/// Client for communicating with the Checker microservice.
+/// </summary>
+/// <param name="client">The injected HttpClient.</param>
+public class CheckerClient(HttpClient client)
+{
+    /// <summary>
+    /// Sends an artifact to the Checker for validation.
+    /// </summary>
+    public async Task<Validation?> ValidateAsync(Artifact artifact)
+    {
+        var response = await client.PostAsJsonAsync("/check", artifact);
+        return await response.Content.ReadFromJsonAsync<Validation>();
+    }
+}
+
+/// <summary>
+/// Client for communicating with the Reflector microservice.
+/// </summary>
+/// <param name="client">The injected HttpClient.</param>
+public class ReflectorClient(HttpClient client)
+{
+    /// <summary>
+    /// Sends validation results to the Reflector for meta-analysis.
+    /// </summary>
+    public async Task<Reflection?> AnalyzeAsync(Validation validation)
+    {
+        var response = await client.PostAsJsonAsync("/reflect", validation);
+        return await response.Content.ReadFromJsonAsync<Reflection>();
+    }
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Controllers\CheckerController.cs
+------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Mvc;
+using ProjectName.CheckerService.Grpc;
+using ProjectName.Shared.Models;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace ProjectName.OrchestrationApi.Controllers;
+
+/// <summary>
+/// Gateway controller for the Checker Service.
+/// </summary>
+[ApiController]
+[Route("checker")]
+[Produces("application/json")]
+[SwaggerTag("Quality validation - ensures artifacts meet specified constraints and standards")]
+public partial class CheckerController(
+    Checker.CheckerClient client,
+    ILogger<CheckerController> logger) : ControllerBase
+{
+    [LoggerMessage(EventId = 3, Level = LogLevel.Information, Message = "CHECKER GATEWAY: Validating Artifact {Id}")]
+    private partial void LogCheckRequest(string id);
+
+    [LoggerMessage(EventId = 4, Level = LogLevel.Error, Message = "Error validating artifact {ArtifactId}")]
+    private partial void LogValidationError(Exception ex, string artifactId);
+
+    /// <summary>
+    /// Validates an artifact (Direct Access).
+    /// </summary>
+    /// <remarks>
+    /// The Checker service performs comprehensive validation including syntax verification,
+    /// security scanning, performance checks, compliance validation, and best practices review.
+    /// Returns a detailed validation report with issues categorized by severity.
+    /// 
+    /// **Example Request:**
+    /// ```json
+    /// {
+    ///   "id": "artifact-789",
+    ///   "planId": "plan-456",
+    ///   "content": "def fibonacci(n): return n if n &lt;= 1 else fibonacci(n-1) + fibonacci(n-2)",
+    ///   "artifactType": "Code/Python"
+    /// }
+    /// ```
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "isValid": false,
+    ///   "issues": ["Performance: Exponential complexity", "Missing docstring"],
+    ///   "confidenceScore": 75.5
+    /// }
+    /// ```
+    /// </remarks>
+    /// <param name="artifact">The artifact to validate.</param>
+    /// <returns>A validation report with issues and confidence score.</returns>
+    /// <response code="200">Validation completed (check isValid field for result).</response>
+    /// <response code="400">Invalid artifact (missing content or type).</response>
+    /// <response code="500">Validation service error.</response>
+    [HttpPost]
+    [SwaggerOperation(
+        Summary = "Validate Artifact",
+        Description = "Performs comprehensive quality validation on an artifact",
+        OperationId = "ValidateArtifact",
+        Tags = new[] { "Validation" }
+    )]
+    [SwaggerResponse(200, "Validation completed", typeof(Validation))]
+    [SwaggerResponse(400, "Invalid artifact")]
+    [SwaggerResponse(500, "Validation error")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public async Task<ActionResult<Validation>> CheckArtifact(
+        [FromBody, SwaggerRequestBody("The artifact to validate", Required = true)] Artifact artifact)
+    {
+        if (artifact == null || string.IsNullOrWhiteSpace(artifact.Id))
+        {
+            return BadRequest(new { error = "Artifact ID cannot be empty" });
+        }
+
+        if (string.IsNullOrWhiteSpace(artifact.Content))
+        {
+            return BadRequest(new { error = "Artifact content cannot be empty" });
+        }
+
+        LogCheckRequest(artifact.Id);
+
+        try
+        {
+            var request = new CheckRequest
+            {
+                ArtifactId = artifact.Id,
+                Content = artifact.Content,
+                ArtifactType = artifact.ArtifactType
+            };
+
+            var reply = await client.ValidateArtifactAsync(request);
+
+            var validation = new Validation(
+                reply.IsValid,
+                reply.Issues.ToArray(),
+                reply.ConfidenceScore
+            );
+
+            return Ok(validation);
+        }
+        catch (Exception ex)
+        {
+            LogValidationError(ex, artifact.Id);
+            return StatusCode(500, new { error = "Validation failed", details = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Batch validate multiple artifacts.
+    /// </summary>
+    /// <remarks>
+    /// Validates multiple artifacts in a single request for efficiency.
+    /// Useful for validating related artifacts or entire project outputs.
+    /// </remarks>
+    /// <param name="request">Array of artifacts to validate.</param>
+    /// <returns>Array of validation results.</returns>
+    /// <response code="200">Batch validation completed.</response>
+    /// <response code="400">Invalid request.</response>
+    [HttpPost("batch")]
+    [SwaggerOperation(
+        Summary = "Batch Validate Artifacts",
+        Description = "Validate multiple artifacts in a single request",
+        OperationId = "BatchValidate",
+        Tags = new[] { "Validation" }
+    )]
+    [SwaggerResponse(200, "Batch validation completed")]
+    [SwaggerResponse(400, "Invalid request")]
+    public async Task<ActionResult<object>> BatchValidate(
+        [FromBody, SwaggerRequestBody("Array of artifacts to validate", Required = true)] BatchValidationRequest request)
+    {
+        if (request?.Artifacts == null || request.Artifacts.Count == 0)
+        {
+            return BadRequest(new { error = "At least one artifact required" });
+        }
+
+        var results = new List<Validation>();
+
+        foreach (var artifact in request.Artifacts)
+        {
+            var checkRequest = new CheckRequest
+            {
+                ArtifactId = artifact.Id,
+                Content = artifact.Content,
+                ArtifactType = artifact.ArtifactType
+            };
+
+            var reply = await client.ValidateArtifactAsync(checkRequest);
+
+            results.Add(new Validation(
+                reply.IsValid,
+                reply.Issues.ToArray(),
+                reply.ConfidenceScore
+            ));
+        }
+
+        return Ok(new
+        {
+            totalValidated = results.Count,
+            totalValid = results.Count(v => v.IsValid),
+            totalInvalid = results.Count(v => !v.IsValid),
+            results
+        });
+    }
+
+    /// <summary>
+    /// Get checker service health status.
+    /// </summary>
+    /// <returns>Service health information.</returns>
+    /// <response code="200">Service is operational.</response>
+    [HttpGet("health")]
+    [SwaggerOperation(
+        Summary = "Checker Health Check",
+        Description = "Verify the Checker service is accessible and operational",
+        OperationId = "CheckerHealth",
+        Tags = new[] { "Diagnostics" }
+    )]
+    [SwaggerResponse(200, "Service is healthy")]
+    public IActionResult HealthCheck()
+    {
+        return Ok(new
+        {
+            status = "healthy",
+            service = "checker",
+            timestamp = DateTime.UtcNow
+        });
+    }
+}
+
+/// <summary>
+/// Request model for batch validation.
+/// </summary>
+[SwaggerSchema(Description = "Container for multiple artifacts to validate")]
+public class BatchValidationRequest
+{
+    /// <summary>
+    /// Array of artifacts to validate.
+    /// </summary>
+    [SwaggerSchema("List of artifacts to validate in batch")]
+    public List<Artifact> Artifacts { get; set; } = [];
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Controllers\MakerController.cs
+------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Mvc;
+using ProjectName.MakerService.Grpc;
+using ProjectName.Shared.Models;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace ProjectName.OrchestrationApi.Controllers;
+
+/// <summary>
+/// Gateway controller for the Maker Service.
+/// </summary>
+[ApiController]
+[Route("maker")]
+[Produces("application/json")]
+[SwaggerTag("Artifact materialization - converts execution plans into concrete deliverables")]
+public partial class MakerController(
+    Maker.MakerClient client,
+    ILogger<MakerController> logger) : ControllerBase
+{
+    [LoggerMessage(EventId = 2, Level = LogLevel.Information, Message = "MAKER GATEWAY: Materializing Plan {PlanId}")]
+    private partial void LogMakingRequest(string planId);
+
+    [LoggerMessage(EventId = 3, Level = LogLevel.Error, Message = "Error materializing plan {PlanId}")]
+    private partial void LogMaterializationError(Exception ex, string planId);
+
+    /// <summary>
+    /// Materializes an artifact from a plan (Direct Access).
+    /// </summary>
+    /// <remarks>
+    /// The Maker service executes the plan's steps and produces a concrete artifact.
+    /// This can be code, documentation, configuration files, or any other deliverable.
+    /// 
+    /// **Example Request:**
+    /// ```json
+    /// {
+    ///   "id": "plan-456",
+    ///   "originalIntentId": "intent-123",
+    ///   "steps": [
+    ///     "Pull Docker image",
+    ///     "Configure container",
+    ///     "Deploy to registry"
+    ///   ],
+    ///   "resources": {
+    ///     "runtime": "docker",
+    ///     "registry": "ghcr.io"
+    ///   }
+    /// }
+    /// ```
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "id": "artifact-789",
+    ///   "planId": "plan-456",
+    ///   "content": "#!/bin/bash\ndocker pull nginx:latest\ndocker tag nginx:latest ghcr.io/myorg/nginx:v1",
+    ///   "artifactType": "Script/Bash"
+    /// }
+    /// ```
+    /// </remarks>
+    /// <param name="plan">The execution plan to materialize.</param>
+    /// <returns>The created artifact with content and metadata.</returns>
+    /// <response code="200">Artifact created successfully.</response>
+    /// <response code="400">Invalid plan (missing steps or resources).</response>
+    /// <response code="500">Materialization failed.</response>
+    [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create Artifact from Plan",
+        Description = "Executes a plan and materializes it into a concrete artifact",
+        OperationId = "MakeArtifact",
+        Tags = new[] { "Materialization" }
+    )]
+    [SwaggerResponse(200, "Artifact created successfully", typeof(Artifact))]
+    [SwaggerResponse(400, "Invalid plan")]
+    [SwaggerResponse(500, "Materialization error")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public async Task<ActionResult<Artifact>> MakeArtifact(
+        [FromBody, SwaggerRequestBody("The plan to execute and materialize", Required = true)] Plan plan)
+    {
+        if (plan == null || string.IsNullOrWhiteSpace(plan.Id))
+        {
+            return BadRequest(new { error = "Plan ID cannot be empty" });
+        }
+
+        if (plan.Steps == null || plan.Steps.Count == 0)
+        {
+            return BadRequest(new { error = "Plan must contain at least one step" });
+        }
+
+        LogMakingRequest(plan.Id);
+
+        try
+        {
+            var request = new MakeRequest { PlanId = plan.Id };
+            request.Steps.AddRange(plan.Steps);
+            foreach (var r in plan.Resources) request.Resources.Add(r.Key, r.Value);
+
+            var reply = await client.MakeArtifactAsync(request);
+
+            var artifact = new Artifact(
+                reply.ArtifactId,
+                plan.Id,
+                reply.Content,
+                reply.ArtifactType
+            );
+
+            return Ok(artifact);
+        }
+        catch (Exception ex)
+        {
+            LogMaterializationError(ex, plan.Id);
+            return StatusCode(500, new { error = "Artifact creation failed", details = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Get maker service health status.
+    /// </summary>
+    /// <remarks>
+    /// Returns the operational status of the Maker service.
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "status": "healthy",
+    ///   "service": "maker",
+    ///   "timestamp": "2026-01-17T10:30:00Z"
+    /// }
+    /// ```
+    /// </remarks>
+    /// <returns>Service health information.</returns>
+    /// <response code="200">Service is operational.</response>
+    [HttpGet("health")]
+    [SwaggerOperation(
+        Summary = "Maker Health Check",
+        Description = "Verify the Maker service is accessible and operational",
+        OperationId = "MakerHealth",
+        Tags = new[] { "Diagnostics" }
+    )]
+    [SwaggerResponse(200, "Service is healthy")]
+    [Produces("application/json")]
+    public IActionResult HealthCheck()
+    {
+        return Ok(new
+        {
+            status = "healthy",
+            service = "maker",
+            timestamp = DateTime.UtcNow
+        });
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Controllers\OrchestratorController.cs
+------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Mvc;
+using ProjectName.PlannerService.Grpc;
+using ProjectName.MakerService.Grpc;
+using ProjectName.CheckerService.Grpc;
+using ProjectName.ReflectorService.Grpc;
+using ProjectName.Shared.Models;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace ProjectName.OrchestrationApi.Controllers;
+
+/// <summary>
+/// The central nervous system of the agent. Orchestrates the flow of data between
+/// Planner, Maker, Checker, and Reflector services via gRPC.
+/// </summary>
+[ApiController]
+[Route("orchestrate")]
+[Produces("application/json")]
+[SwaggerTag("Core orchestration endpoint that executes the full PMCR-O cognitive cycle")]
+public partial class OrchestratorController(
+    Planner.PlannerClient planner,
+    Maker.MakerClient maker,
+    Checker.CheckerClient checker,
+    Reflector.ReflectorClient reflector,
+    ILogger<OrchestratorController> logger) : ControllerBase
+{
+    [LoggerMessage(EventId = 1000, Level = LogLevel.Information, Message = "ORCHESTRATOR: Received Intent: {Id}")]
+    private partial void LogReceivedIntent(string id);
+
+    [LoggerMessage(EventId = 1001, Level = LogLevel.Error, Message = "Error executing cycle for intent {IntentId}")]
+    private partial void LogCycleExecutionError(Exception ex, string intentId);
+
+    /// <summary>
+    /// Executes a full cognitive cycle based on a seed intent.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint implements the complete PMCR-O loop:
+    /// 
+    /// 1. **Plan (P)**: Converts abstract intent into structured execution strategy
+    /// 2. **Make (M)**: Materializes the plan into a concrete artifact
+    /// 3. **Check (C)**: Validates the artifact against quality constraints
+    /// 4. **Reflect (R)**: Analyzes results to determine convergence or iteration
+    /// 
+    /// The cycle returns either "Converged" (task complete) or "Iterating" (requires refinement).
+    /// 
+    /// **Example Request:**
+    /// ```json
+    /// {
+    ///   "id": "intent-001",
+    ///   "content": "Create a Python function to calculate Fibonacci numbers",
+    ///   "context": {
+    ///     "environment": "production",
+    ///     "language": "python"
+    ///   }
+    /// }
+    /// ```
+    /// 
+    /// **Example Response (Converged):**
+    /// ```json
+    /// {
+    ///   "status": "Converged",
+    ///   "artifact": {
+    ///     "id": "artifact-xyz",
+    ///     "planId": "plan-abc",
+    ///     "content": "def fibonacci(n):\n    if n &lt;= 1: return n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b",
+    ///     "artifactType": "Code/Python"
+    ///   },
+    ///   "reflection": {
+    ///     "insight": "Artifact meets all quality standards.",
+    ///     "optimizedIntent": ""
+    ///   }
+    /// }
+    /// ```
+    /// 
+    /// **Example Response (Iterating):**
+    /// ```json
+    /// {
+    ///   "status": "Iterating",
+    ///   "artifact": {
+    ///     "id": "artifact-xyz",
+    ///     "planId": "plan-abc",
+    ///     "content": "def fib(n): return fib(n-1)+fib(n-2) if n&gt;1 else n",
+    ///     "artifactType": "Code/Python"
+    ///   },
+    ///   "reflection": {
+    ///     "insight": "Exponential complexity detected. Needs optimization.",
+    ///     "optimizedIntent": "Create an efficient iterative Fibonacci function"
+    ///   }
+    /// }
+    /// ```
+    /// </remarks>
+    /// <param name="intent">The input intent containing the goal and context.</param>
+    /// <returns>The result of the cycle, indicating convergence or iteration.</returns>
+    /// <response code="200">Cycle completed successfully. Check the Status field for convergence.</response>
+    /// <response code="400">Invalid intent provided (empty content, malformed JSON).</response>
+    /// <response code="500">Internal error during cycle execution.</response>
+    [HttpPost("run-cycle")]
+    [SwaggerOperation(
+        Summary = "Execute Full PMCR-O Cycle",
+        Description = "Runs the complete Plan-Make-Check-Reflect loop for a given intent",
+        OperationId = "ExecuteCycle",
+        Tags = new[] { "Orchestration" }
+    )]
+    [SwaggerResponse(200, "Cycle completed successfully", typeof(CycleResult))]
+    [SwaggerResponse(400, "Invalid request")]
+    [SwaggerResponse(500, "Internal server error")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public async Task<ActionResult<CycleResult>> ExecuteCycle(
+        [FromBody, SwaggerRequestBody("The seed intent to process", Required = true)] Intent intent)
+    {
+        if (intent == null || string.IsNullOrWhiteSpace(intent.Content))
+        {
+            return BadRequest(new { error = "Intent content cannot be empty" });
+        }
+
+        LogReceivedIntent(intent.Id);
+
+        try
+        {
+            // 1. PLAN (gRPC)
+            var planRequest = new IntentRequest { Id = intent.Id, Content = intent.Content };
+            foreach (var kvp in intent.Context) planRequest.Context.Add(kvp.Key, kvp.Value);
+
+            var protoPlan = await planner.CreatePlanAsync(planRequest);
+
+            var domainPlan = new Plan(
+                protoPlan.Id,
+                protoPlan.OriginalIntentId,
+                protoPlan.Steps.ToList(),
+                protoPlan.Resources.ToDictionary(k => k.Key, v => v.Value)
+            );
+
+            // 2. MAKE (gRPC)
+            var makeRequest = new MakeRequest { PlanId = domainPlan.Id };
+            makeRequest.Steps.AddRange(domainPlan.Steps);
+            foreach (var r in domainPlan.Resources) makeRequest.Resources.Add(r.Key, r.Value);
+
+            // --- INTELLIGENT ROUTING FIX ---
+            // Extract target language from Context or Resources to guide the Maker.
+            if (intent.Context.TryGetValue("language", out var lang) ||
+                domainPlan.Resources.TryGetValue("language", out lang))
+            {
+                makeRequest.ArtifactType = lang;
+            }
+            else
+            {
+                // Default to standard code if not specified
+                makeRequest.ArtifactType = "Code";
+            }
+            // -------------------------------
+
+            var makeReply = await maker.MakeArtifactAsync(makeRequest);
+
+            var artifact = new Artifact(
+                makeReply.ArtifactId,
+                domainPlan.Id,
+                makeReply.Content,
+                makeReply.ArtifactType
+            );
+
+            // 3. CHECK (gRPC)
+            var checkRequest = new CheckRequest
+            {
+                ArtifactId = artifact.Id,
+                Content = artifact.Content,
+                ArtifactType = artifact.ArtifactType
+            };
+
+            var checkReply = await checker.ValidateArtifactAsync(checkRequest);
+
+            var validation = new Validation(
+                checkReply.IsValid,
+                checkReply.Issues.ToArray(),
+                checkReply.ConfidenceScore
+            );
+
+            // 4. REFLECT (gRPC)
+            var reflectRequest = new ReflectRequest
+            {
+                IsValid = validation.IsValid,
+                ConfidenceScore = validation.ConfidenceScore
+            };
+            reflectRequest.Issues.AddRange(validation.Issues);
+
+            var reflectReply = await reflector.AnalyzeCycleAsync(reflectRequest);
+
+            var reflection = new Reflection(
+                reflectReply.Insight,
+                reflectReply.OptimizedIntent
+            );
+
+            // 5. Result
+            return Ok(new CycleResult(
+                Status: validation.IsValid ? "Converged" : "Iterating",
+                Artifact: artifact,
+                Reflection: reflection
+            ));
+        }
+        catch (Exception ex)
+        {
+            LogCycleExecutionError(ex, intent.Id);
+            return StatusCode(500, new { error = "Cycle execution failed", details = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Health check endpoint for the orchestrator.
+    /// </summary>
+    /// <remarks>
+    /// Returns the operational status of the Orchestrator service.
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "status": "healthy",
+    ///   "service": "orchestrator",
+    ///   "timestamp": "2026-01-17T10:30:00Z"
+    /// }
+    /// ```
+    /// </remarks>
+    /// <returns>Service health status.</returns>
+    /// <response code="200">Service is healthy and operational.</response>
+    [HttpGet("health")]
+    [SwaggerOperation(
+        Summary = "Health Check",
+        Description = "Verify orchestrator service is running",
+        OperationId = "HealthCheck",
+        Tags = new[] { "Diagnostics" }
+    )]
+    [SwaggerResponse(200, "Service is healthy")]
+    [Produces("application/json")]
+    public IActionResult HealthCheck()
+    {
+        return Ok(new
+        {
+            status = "healthy",
+            service = "orchestrator",
+            timestamp = DateTime.UtcNow
+        });
+    }
+}
+
+/// <summary>
+/// Encapsulates the outcome of a cognitive cycle.
+/// </summary>
+/// <param name="Status">The current state: Converged (complete) or Iterating (refining).</param>
+/// <param name="Artifact">The produced artifact, if any.</param>
+/// <param name="Reflection">The meta-analysis of the cycle.</param>
+[SwaggerSchema(Description = "Result of a complete PMCR-O cognitive cycle")]
+public record CycleResult(
+    [property: SwaggerSchema("Convergence status: 'Converged' or 'Iterating'")] string Status,
+    [property: SwaggerSchema("The artifact produced by the Maker service")] Artifact? Artifact,
+    [property: SwaggerSchema("Meta-cognitive analysis from the Reflector")] Reflection? Reflection
+);
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Controllers\PlannerController.cs
+------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Mvc;
+using ProjectName.PlannerService.Grpc;
+using ProjectName.Shared.Models;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace ProjectName.OrchestrationApi.Controllers;
+
+/// <summary>
+/// Gateway controller for the Planner Service.
+/// </summary>
+[ApiController]
+[Route("planner")]
+[Produces("application/json")]
+[SwaggerTag("Strategic planning - decomposes intents into actionable execution plans")]
+public partial class PlannerController(
+    Planner.PlannerClient client,
+    ILogger<PlannerController> logger) : ControllerBase
+{
+    [LoggerMessage(EventId = 1, Level = LogLevel.Information, Message = "PLANNER GATEWAY: Requesting plan for Intent {Id}")]
+    private partial void LogPlanningRequest(string id);
+
+    [LoggerMessage(EventId = 2, Level = LogLevel.Error, Message = "Error creating plan for intent {IntentId}")]
+    private partial void LogPlanningError(Exception ex, string intentId);
+
+    /// <summary>
+    /// Decomposes an intent into a structured plan (Direct Access).
+    /// </summary>
+    /// <remarks>
+    /// The Planner analyzes the intent and breaks it down into sequential execution steps,
+    /// required resources (runtime, tools, dependencies), and detailed action plan with tool assignments.
+    /// This is the P (Plan) phase of the PMCR-O cycle.
+    /// 
+    /// **Example Request:**
+    /// ```json
+    /// {
+    ///   "id": "intent-123",
+    ///   "content": "Deploy a containerized web service",
+    ///   "context": {
+    ///     "platform": "kubernetes",
+    ///     "environment": "staging"
+    ///   }
+    /// }
+    /// ```
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "id": "plan-456",
+    ///   "originalIntentId": "intent-123",
+    ///   "steps": [
+    ///     "Create Dockerfile",
+    ///     "Build container image",
+    ///     "Push to registry",
+    ///     "Deploy to Kubernetes"
+    ///   ],
+    ///   "resources": {
+    ///     "runtime": "docker",
+    ///     "orchestrator": "kubernetes",
+    ///     "environment": "staging"
+    ///   }
+    /// }
+    /// ```
+    /// </remarks>
+    /// <param name="intent">The seed intent to plan.</param>
+    /// <returns>A structured execution plan with steps and resources.</returns>
+    /// <response code="200">Plan created successfully.</response>
+    /// <response code="400">Invalid intent (empty content).</response>
+    /// <response code="500">Planning service error.</response>
+    [HttpPost]
+    [SwaggerOperation(
+        Summary = "Create Execution Plan",
+        Description = "Converts an abstract intent into a structured, actionable plan",
+        OperationId = "CreatePlan",
+        Tags = new[] { "Planning" }
+    )]
+    [SwaggerResponse(200, "Plan created successfully", typeof(Plan))]
+    [SwaggerResponse(400, "Invalid intent")]
+    [SwaggerResponse(500, "Planning error")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public async Task<ActionResult<Plan>> CreatePlan(
+        [FromBody, SwaggerRequestBody("The intent to decompose into a plan", Required = true)] Intent intent)
+    {
+        if (intent == null || string.IsNullOrWhiteSpace(intent.Content))
+        {
+            return BadRequest(new { error = "Intent content cannot be empty" });
+        }
+
+        LogPlanningRequest(intent.Id);
+
+        try
+        {
+            var request = new IntentRequest { Id = intent.Id, Content = intent.Content };
+            foreach (var kvp in intent.Context) request.Context.Add(kvp.Key, kvp.Value);
+
+            var reply = await client.CreatePlanAsync(request);
+
+            var domainPlan = new Plan(
+                reply.Id,
+                reply.OriginalIntentId,
+                reply.Steps.ToList(),
+                reply.Resources.ToDictionary(k => k.Key, v => v.Value)
+            );
+
+            return Ok(domainPlan);
+        }
+        catch (Exception ex)
+        {
+            LogPlanningError(ex, intent.Id);
+            return StatusCode(500, new { error = "Planning failed", details = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Gather intelligence for planning (Research capability).
+    /// </summary>
+    /// <remarks>
+    /// The Planner can perform research before creating a plan.
+    /// This uses the Eyes component to gather real-world information.
+    /// Useful for finding current best practices, discovering available tools/libraries,
+    /// researching domain-specific constraints, and validating feasibility.
+    /// 
+    /// **Example Request:**
+    /// ```json
+    /// {
+    ///   "query": "Best practices for Kubernetes deployment in 2026",
+    ///   "domains": ["devops", "kubernetes"],
+    ///   "maxResults": 5
+    /// }
+    /// ```
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "success": true,
+    ///   "intel": "Found 5 relevant sources about K8s deployment patterns...",
+    ///   "sources": [
+    ///     {
+    ///       "url": "https://kubernetes.io/docs/concepts/workloads/",
+    ///       "title": "Workload Resources",
+    ///       "snippet": "Overview of deployment strategies...",
+    ///       "relevance": 0.95
+    ///     }
+    ///   ],
+    ///   "errorMessage": null
+    /// }
+    /// ```
+    /// </remarks>
+    /// <param name="request">Research query parameters.</param>
+    /// <returns>Intelligence report with sources.</returns>
+    /// <response code="200">Research completed successfully.</response>
+    /// <response code="400">Invalid query.</response>
+    [HttpPost("research")]
+    [SwaggerOperation(
+        Summary = "Gather Intelligence",
+        Description = "Performs research to gather information for better planning",
+        OperationId = "GatherIntel",
+        Tags = new[] { "Planning" }
+    )]
+    [SwaggerResponse(200, "Research completed")]
+    [SwaggerResponse(400, "Invalid query")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public async Task<ActionResult<object>> GatherIntel(
+        [FromBody, SwaggerRequestBody("Research query", Required = true)] ResearchQuery request)
+    {
+        if (request == null || string.IsNullOrWhiteSpace(request.Query))
+        {
+            return BadRequest(new { error = "Query cannot be empty" });
+        }
+
+        var researchRequest = new ResearchRequest
+        {
+            Query = request.Query,
+            MaxResults = request.MaxResults
+        };
+        researchRequest.Domains.AddRange(request.Domains);
+
+        var reply = await client.GatherIntelAsync(researchRequest);
+
+        return Ok(new
+        {
+            success = reply.Success,
+            intel = reply.Intel,
+            sources = reply.Sources.Select(s => new
+            {
+                s.Url,
+                s.Title,
+                s.Snippet,
+                relevance = s.RelevanceScore
+            }),
+            errorMessage = reply.ErrorMessage
+        });
+    }
+
+    /// <summary>
+    /// Get planner service health status.
+    /// </summary>
+    /// <remarks>
+    /// Returns the operational status of the Planner service.
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "status": "healthy",
+    ///   "service": "planner",
+    ///   "timestamp": "2026-01-17T10:30:00Z"
+    /// }
+    /// ```
+    /// </remarks>
+    /// <returns>Service health information.</returns>
+    /// <response code="200">Service is operational.</response>
+    [HttpGet("health")]
+    [SwaggerOperation(
+        Summary = "Planner Health Check",
+        Description = "Verify the Planner service is accessible and operational",
+        OperationId = "PlannerHealth",
+        Tags = new[] { "Diagnostics" }
+    )]
+    [SwaggerResponse(200, "Service is healthy")]
+    [Produces("application/json")]
+    public IActionResult HealthCheck()
+    {
+        return Ok(new
+        {
+            status = "healthy",
+            service = "planner",
+            timestamp = DateTime.UtcNow
+        });
+    }
+}
+
+/// <summary>
+/// Research query request model.
+/// </summary>
+[SwaggerSchema(Description = "Parameters for intelligence gathering research")]
+public class ResearchQuery
+{
+    /// <summary>
+    /// Search query string.
+    /// </summary>
+    [SwaggerSchema("The research question or search query")]
+    public string Query { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Target domains for research.
+    /// </summary>
+    [SwaggerSchema("Specific domains to search (e.g., 'devops', 'security')")]
+    public List<string> Domains { get; set; } = [];
+
+    /// <summary>
+    /// Maximum number of results to return.
+    /// </summary>
+    [SwaggerSchema("Maximum number of research results (default: 10)")]
+    public int MaxResults { get; set; } = 10;
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Controllers\ReflectorController.cs
+------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Mvc;
+using ProjectName.ReflectorService.Grpc;
+using ProjectName.Shared.Models;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace ProjectName.OrchestrationApi.Controllers;
+
+/// <summary>
+/// Gateway controller for the Reflector Service.
+/// </summary>
+[ApiController]
+[Route("reflector")]
+[Produces("application/json")]
+[SwaggerTag("Meta-cognitive analysis - determines convergence and provides improvement insights")]
+public partial class ReflectorController(
+    Reflector.ReflectorClient client,
+    ILogger<ReflectorController> logger) : ControllerBase
+{
+    [LoggerMessage(EventId = 4, Level = LogLevel.Information, Message = "REFLECTOR GATEWAY: Analyzing validation results")]
+    private partial void LogReflectRequest();
+
+    [LoggerMessage(EventId = 5, Level = LogLevel.Error, Message = "Error during reflection analysis")]
+    private partial void LogReflectionError(Exception ex);
+
+    /// <summary>
+    /// Analyzes validation results for meta-cognition (Direct Access).
+    /// </summary>
+    /// <remarks>
+    /// The Reflector performs meta-cognitive analysis to determine convergence (has the cycle achieved its goal),
+    /// iteration guidance (what should be refined for the next cycle), quality insights (pattern recognition),
+    /// and optimization suggestions (how to improve the intent or approach).
+    /// The reflector is the thinking about thinking component that decides whether to converge or iterate.
+    /// 
+    /// **Example Request:**
+    /// ```json
+    /// {
+    ///   "isValid": false,
+    ///   "issues": [
+    ///     "Missing error handling",
+    ///     "No input validation"
+    ///   ],
+    ///   "confidenceScore": 65.0
+    /// }
+    /// ```
+    /// 
+    /// **Example Response (Converged):**
+    /// ```json
+    /// {
+    ///   "insight": "Artifact meets all quality standards. Ready for production.",
+    ///   "optimizedIntent": ""
+    /// }
+    /// ```
+    /// 
+    /// **Example Response (Iterating):**
+    /// ```json
+    /// {
+    ///   "insight": "Validation identified critical gaps in error handling and input validation.",
+    ///   "optimizedIntent": "Create a Python function with comprehensive error handling and input validation"
+    /// }
+    /// ```
+    /// </remarks>
+    /// <param name="validation">The validation report to analyze.</param>
+    /// <returns>Reflection insights and convergence decision.</returns>
+    /// <response code="200">Analysis completed successfully.</response>
+    /// <response code="400">Invalid validation data.</response>
+    /// <response code="500">Reflection service error.</response>
+    [HttpPost]
+    [SwaggerOperation(
+        Summary = "Analyze Validation Results",
+        Description = "Performs meta-cognitive analysis to determine convergence or iteration needs",
+        OperationId = "ReflectOnValidation",
+        Tags = new[] { "Meta-Cognition" }
+    )]
+    [SwaggerResponse(200, "Analysis completed", typeof(Reflection))]
+    [SwaggerResponse(400, "Invalid validation data")]
+    [SwaggerResponse(500, "Reflection error")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public async Task<ActionResult<Reflection>> Reflect(
+        [FromBody, SwaggerRequestBody("The validation results to analyze", Required = true)] Validation validation)
+    {
+        if (validation == null)
+        {
+            return BadRequest(new { error = "Validation data cannot be null" });
+        }
+
+        LogReflectRequest();
+
+        try
+        {
+            var request = new ReflectRequest
+            {
+                IsValid = validation.IsValid,
+                ConfidenceScore = validation.ConfidenceScore
+            };
+            request.Issues.AddRange(validation.Issues);
+
+            var reply = await client.AnalyzeCycleAsync(request);
+
+            var reflection = new Reflection(
+                reply.Insight,
+                reply.OptimizedIntent
+            );
+
+            return Ok(reflection);
+        }
+        catch (Exception ex)
+        {
+            LogReflectionError(ex);
+            return StatusCode(500, new { error = "Reflection failed", details = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Analyzes historical cycle patterns for learning.
+    /// </summary>
+    /// <remarks>
+    /// Performs trend analysis across multiple cycles to identify common failure patterns,
+    /// success indicators, optimization opportunities, and learning trajectories.
+    /// This endpoint enables the system to learn from past iterations and improve future planning strategies.
+    /// 
+    /// **Example Request:**
+    /// ```json
+    /// {
+    ///   "cycles": [
+    ///     {
+    ///       "intentId": "intent-1",
+    ///       "wasValid": false,
+    ///       "confidenceScore": 55.0,
+    ///       "timestamp": "2026-01-17T10:00:00Z"
+    ///     },
+    ///     {
+    ///       "intentId": "intent-1-refined",
+    ///       "wasValid": true,
+    ///       "confidenceScore": 92.0,
+    ///       "timestamp": "2026-01-17T10:05:00Z"
+    ///     }
+    ///   ],
+    ///   "analysisType": "trend"
+    /// }
+    /// ```
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "summary": {
+    ///     "totalCycles": 2,
+    ///     "successRate": 50.0,
+    ///     "averageConfidence": 73.5,
+    ///     "improvementTrend": 37.0
+    ///   },
+    ///   "insights": [
+    ///     "Refinement iterations needed",
+    ///     "Positive learning trajectory",
+    ///     "Quality improvements recommended"
+    ///   ],
+    ///   "recommendation": "Consider refining prompts or adding validation rules."
+    /// }
+    /// ```
+    /// </remarks>
+    /// <param name="request">Historical cycle data to analyze.</param>
+    /// <returns>Pattern analysis and insights.</returns>
+    /// <response code="200">Historical analysis completed.</response>
+    /// <response code="400">Invalid or insufficient cycle data.</response>
+    [HttpPost("analyze-history")]
+    [SwaggerOperation(
+        Summary = "Analyze Historical Cycles",
+        Description = "Performs trend analysis across multiple cycles for pattern recognition and learning",
+        OperationId = "AnalyzeHistory",
+        Tags = new[] { "Meta-Cognition" }
+    )]
+    [SwaggerResponse(200, "Historical analysis completed")]
+    [SwaggerResponse(400, "Invalid cycle data")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public ActionResult<object> AnalyzeHistory(
+        [FromBody, SwaggerRequestBody("Historical cycle data", Required = true)] HistoricalAnalysisRequest request)
+    {
+        if (request?.Cycles == null || request.Cycles.Count < 2)
+        {
+            return BadRequest(new { error = "At least 2 cycles required for historical analysis" });
+        }
+
+        // Calculate metrics
+        var successRate = (double)request.Cycles.Count(c => c.WasValid) / request.Cycles.Count * 100;
+        var averageConfidence = request.Cycles.Average(c => c.ConfidenceScore);
+        var improvementTrend = request.Cycles.Count > 1
+            ? request.Cycles.Last().ConfidenceScore - request.Cycles.First().ConfidenceScore
+            : 0;
+
+        return Ok(new
+        {
+            summary = new
+            {
+                totalCycles = request.Cycles.Count,
+                successRate = Math.Round(successRate, 2),
+                averageConfidence = Math.Round(averageConfidence, 2),
+                improvementTrend = Math.Round(improvementTrend, 2)
+            },
+            insights = new[]
+            {
+                successRate > 75 ? "Strong convergence pattern detected" : "Refinement iterations needed",
+                improvementTrend > 0 ? "Positive learning trajectory" : "Consider alternative approaches",
+                averageConfidence > 80 ? "High confidence in outputs" : "Quality improvements recommended"
+            },
+            recommendation = successRate > 75
+                ? "System is performing well. Continue with current strategy."
+                : "Consider refining prompts or adding validation rules."
+        });
+    }
+
+    /// <summary>
+    /// Get reflector service health status.
+    /// </summary>
+    /// <remarks>
+    /// Returns the operational status of the Reflector service.
+    /// 
+    /// **Example Response:**
+    /// ```json
+    /// {
+    ///   "status": "healthy",
+    ///   "service": "reflector",
+    ///   "timestamp": "2026-01-17T10:30:00Z"
+    /// }
+    /// ```
+    /// </remarks>
+    /// <returns>Service health information.</returns>
+    /// <response code="200">Service is operational.</response>
+    [HttpGet("health")]
+    [SwaggerOperation(
+        Summary = "Reflector Health Check",
+        Description = "Verify the Reflector service is accessible and operational",
+        OperationId = "ReflectorHealth",
+        Tags = new[] { "Diagnostics" }
+    )]
+    [SwaggerResponse(200, "Service is healthy")]
+    [Produces("application/json")]
+    public IActionResult HealthCheck()
+    {
+        return Ok(new
+        {
+            status = "healthy",
+            service = "reflector",
+            timestamp = DateTime.UtcNow
+        });
+    }
+}
+
+/// <summary>
+/// Request model for historical cycle analysis.
+/// </summary>
+[SwaggerSchema(Description = "Container for historical cycle data used in trend analysis")]
+public class HistoricalAnalysisRequest
+{
+    /// <summary>
+    /// List of cycle records to analyze.
+    /// </summary>
+    [SwaggerSchema("Historical cycle data for pattern analysis")]
+    public List<CycleRecord> Cycles { get; set; } = [];
+
+    /// <summary>
+    /// Type of analysis to perform (trend, pattern, optimization).
+    /// </summary>
+    [SwaggerSchema("Analysis type: trend, pattern, or optimization")]
+    public string AnalysisType { get; set; } = "trend";
+}
+
+/// <summary>
+/// Individual cycle record for historical analysis.
+/// </summary>
+[SwaggerSchema(Description = "Single cycle execution record")]
+public class CycleRecord
+{
+    /// <summary>
+    /// Intent identifier for this cycle.
+    /// </summary>
+    [SwaggerSchema("Unique identifier for the intent")]
+    public string IntentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Whether the cycle produced a valid artifact.
+    /// </summary>
+    [SwaggerSchema("Validation result: true if artifact was valid")]
+    public bool WasValid { get; set; }
+
+    /// <summary>
+    /// Confidence score from validation (0-100).
+    /// </summary>
+    [SwaggerSchema("Validation confidence score (0-100)")]
+    public double ConfidenceScore { get; set; }
+
+    /// <summary>
+    /// When this cycle was executed.
+    /// </summary>
+    [SwaggerSchema("Cycle execution timestamp")]
+    public DateTime Timestamp { get; set; }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Properties\launchSettings.json
+------------------------------------------------------------------------------
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5041",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7296;http://localhost:5041",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Services\OrchestrationService.cs
+------------------------------------------------------------------------------
+using Microsoft.Agents.AI;
+using Microsoft.Agents.AI.Workflows;
+using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
+using ProjectName.PlannerService.Grpc;
+using ProjectName.Shared.Models;
+using System.Text;
+using System.Text.Json;
+using System.Globalization;
+
+namespace ProjectName.OrchestrationApi.Services;
+
+public partial class OrchestrationService
+{
+    private readonly Planner.PlannerClient _plannerClient;
+    private readonly IChatClient _baseChatClient;
+    private readonly ILogger<OrchestrationService> _logger;
+    private readonly Clients.MakerClient _makerClient;
+    private readonly Clients.CheckerClient _checkerClient;
+    private readonly Clients.ReflectorClient _reflectorClient;
+
+    public OrchestrationService(
+        Planner.PlannerClient plannerClient,
+        IChatClient chatClient,
+        Clients.MakerClient makerClient,
+        Clients.CheckerClient checkerClient,
+        Clients.ReflectorClient reflectorClient,
+        ILogger<OrchestrationService> logger)
+    {
+        _plannerClient = plannerClient;
+        _baseChatClient = chatClient;
+        _makerClient = makerClient;
+        _checkerClient = checkerClient;
+        _reflectorClient = reflectorClient;
+        _logger = logger;
+    }
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "🧠 Orchestration: Starting PMCR-O cycle for intent: {Intent}")]
+    private partial void LogStartCycle(string intent);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "✅ Orchestration: Cycle completed with status: {Status}")]
+    private partial void LogCycleComplete(string status);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Agent {ExecutorId} output: {Content}")]
+    private partial void LogAgentOutput(string executorId, string content);
+
+    [LoggerMessage(Level = LogLevel.Error, Message = "Orchestration failed for intent: {Intent}")]
+    private partial void LogOrchestrationFailure(Exception ex, string intent);
+
+    // ------------------------------------------------------------
+    // AGENT FACTORY HELPERS
+    // ------------------------------------------------------------
+
+    private ChatClientAgent CreateAgentWithTools(string name, string description, IList<AITool> tools)
+    {
+        var options = new ChatClientAgentOptions
+        {
+            Name = name,
+            Description = description,
+            ChatOptions = new ChatOptions
+            {
+                Tools = tools
+            }
+        };
+
+        return new ChatClientAgent(_baseChatClient, options);
+    }
+
+    private ChatClientAgent CreatePlannerAgent()
+    {
+        var tools = new List<AITool>
+        {
+        AIFunctionFactory.Create(
+            CallPlannerServiceAsync,
+            "create_plan",
+            "Creates a plan from intent"
+        )
+        };
+
+        return CreateAgentWithTools("PlannerAgent", "Strategic planner that decomposes intents", tools);
+    }
+
+    private ChatClientAgent CreateMakerAgent()
+    {
+        var tools = new List<AITool>
+        {
+AIFunctionFactory.Create(
+    CallPlannerServiceAsync,
+    "create_plan",
+    "Creates a plan from intent"
+)
+        };
+
+        return CreateAgentWithTools("MakerAgent", "Executor that performs planned actions", tools);
+    }
+
+    private ChatClientAgent CreateCheckerAgent()
+    {
+        var tools = new List<AITool>
+        {
+AIFunctionFactory.Create(
+    CallPlannerServiceAsync,
+    "create_plan",
+    "Creates a plan from intent"
+)
+        };
+
+        return CreateAgentWithTools("CheckerAgent", "Validator that verifies results", tools);
+    }
+
+    private ChatClientAgent CreateReflectorAgent()
+    {
+        var tools = new List<AITool>
+        {
+AIFunctionFactory.Create(
+    CallPlannerServiceAsync,
+    "create_plan",
+    "Creates a plan from intent"
+)
+        };
+
+        return CreateAgentWithTools("ReflectorAgent", "Analyzer that identifies improvements", tools);
+    }
+
+    // ------------------------------------------------------------
+    // EXECUTION PIPELINE
+    // ------------------------------------------------------------
+
+    public async Task<OrchestrationResult> ExecuteIntentAsync(Intent intent, CancellationToken ct = default)
+    {
+        LogStartCycle(intent.Content);
+
+        try
+        {
+            var planner = CreatePlannerAgent();
+            var maker = CreateMakerAgent();
+            var checker = CreateCheckerAgent();
+            var reflector = CreateReflectorAgent();
+
+            var endNode = new ChatClientAgent(
+                _baseChatClient,
+                new ChatClientAgentOptions
+                {
+                    Name = "End",
+                    Description = "Terminator"
+                });
+
+            var builder = new WorkflowBuilder(planner);
+
+            var workflow = builder
+                .AddEdge(planner, maker)
+                .AddEdge(maker, checker)
+                .AddEdge(checker, reflector)
+                .AddSwitch(reflector, map => map
+                    .AddCase<ChatMessage>(msg => (msg?.Text ?? "").Contains("ITERATE"), planner)
+                    .WithDefault(endNode))
+                .Build();
+
+            var run = await InProcessExecution.RunAsync(workflow, intent.Content, cancellationToken: ct);
+
+            var result = new OrchestrationResult
+            {
+                Status = "Success",
+                Output = new StringBuilder()
+            };
+
+            if (run?.NewEvents != null)
+            {
+                foreach (var evt in run.NewEvents)
+                {
+                    if (evt is AgentRunUpdateEvent agentEvent && agentEvent.Update != null)
+                    {
+                        var content = agentEvent.Update?.Text ?? string.Empty;
+                        var agentId = agentEvent.ExecutorId ?? "Unknown";
+
+                        result.Output.AppendLine(
+                            CultureInfo.InvariantCulture,
+                            $"[{agentId}]: {content}");
+
+                        LogAgentOutput(agentId, content.Length > 100 ? content[..100] + "..." : content);
+                    }
+                }
+            }
+
+            LogCycleComplete("Success");
+            return result;
+        }
+        catch (Exception ex)
+        {
+            LogOrchestrationFailure(ex, intent.Content);
+            return new OrchestrationResult
+            {
+                Status = "Failed",
+                ErrorMessage = ex.Message
+            };
+        }
+    }
+
+    // ------------------------------------------------------------
+    // TOOL IMPLEMENTATIONS
+    // ------------------------------------------------------------
+
+    private async Task<string> CallPlannerServiceAsync(string intent)
+    {
+        var request = new IntentRequest { Id = Guid.NewGuid().ToString(), Content = intent };
+        var reply = await _plannerClient.CreatePlanAsync(request);
+        return JsonSerializer.Serialize(reply);
+    }
+
+    private async Task<string> CallMakerServiceAsync(string planJson)
+    {
+        try
+        {
+            var plan = JsonSerializer.Deserialize<Plan>(planJson);
+            if (plan == null) return "Error: Invalid Plan JSON";
+
+            var artifact = await _makerClient.ExecuteAsync(plan);
+            return JsonSerializer.Serialize(artifact);
+        }
+        catch (Exception ex)
+        {
+            return $"Error making artifact: {ex.Message}";
+        }
+    }
+
+    private async Task<string> CallCheckerServiceAsync(string artifactJson)
+    {
+        try
+        {
+            var artifact = JsonSerializer.Deserialize<Artifact>(artifactJson);
+            if (artifact == null) return "Error: Invalid Artifact JSON";
+
+            var validation = await _checkerClient.ValidateAsync(artifact);
+            return JsonSerializer.Serialize(validation);
+        }
+        catch (Exception ex)
+        {
+            return $"Error checking artifact: {ex.Message}";
+        }
+    }
+
+    private async Task<string> CallReflectorServiceAsync(string validationJson)
+    {
+        try
+        {
+            var validation = JsonSerializer.Deserialize<Validation>(validationJson);
+            if (validation == null) return "Error: Invalid Validation JSON";
+
+            var reflection = await _reflectorClient.AnalyzeAsync(validation);
+
+            return string.IsNullOrEmpty(reflection?.OptimizedIntent)
+                ? "CONVERGED"
+                : $"ITERATE: {reflection.OptimizedIntent}";
+        }
+        catch (Exception ex)
+        {
+            return $"Error reflecting: {ex.Message}";
+        }
+    }
+}
+
+public class OrchestrationResult
+{
+    public string Status { get; set; } = "Unknown";
+    public StringBuilder Output { get; set; } = new();
+    public string? ErrorMessage { get; set; }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\appsettings.Development.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\appsettings.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\Program.cs
+------------------------------------------------------------------------------
+using Microsoft.Extensions.AI;
+using Microsoft.OpenApi;
+using OllamaSharp;
+using ProjectName.CheckerService.Grpc;
+using ProjectName.MakerService.Grpc;
+using ProjectName.OrchestrationApi.Clients;
+using ProjectName.OrchestrationApi.Services;
+using ProjectName.PlannerService.Grpc;
+using ProjectName.ReflectorService.Grpc;
+using System.Reflection;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+// --- 1. THE BRAIN (IChatClient) ---
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddChatClient(new OllamaApiClient(
+        new Uri("http://localhost:11434"),
+        "qwen2.5-coder"));
+}
+
+// --- 2. HTTP CLIENTS (For OrchestrationService / Agents) ---
+builder.Services.AddHttpClient<ProjectName.OrchestrationApi.Clients.MakerClient>(c => c.BaseAddress = new("https://maker-service"));
+builder.Services.AddHttpClient<ProjectName.OrchestrationApi.Clients.CheckerClient>(c => c.BaseAddress = new("https://checker-service"));
+builder.Services.AddHttpClient<ProjectName.OrchestrationApi.Clients.ReflectorClient>(c => c.BaseAddress = new("https://reflector-service"));
+
+// --- 3. gRPC CLIENTS (For Controllers / Direct Access) ---
+builder.Services.AddGrpcClient<Planner.PlannerClient>(o => o.Address = new Uri("https://planner-service"));
+builder.Services.AddGrpcClient<Maker.MakerClient>(o => o.Address = new Uri("https://maker-service"));
+builder.Services.AddGrpcClient<Checker.CheckerClient>(o => o.Address = new Uri("https://checker-service"));
+builder.Services.AddGrpcClient<Reflector.ReflectorClient>(o => o.Address = new Uri("https://reflector-service"));
+
+// --- 4. THE NERVOUS SYSTEM ---
+builder.Services.AddScoped<OrchestrationService>();
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+// --- 5. ENHANCED SWAGGER CONFIGURATION ---
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "PMCR-O Orchestration API",
+        Version = "v1",
+        Description = "# PMCR-O: Plan-Make-Check-Reflect Orchestrator\n\n" +
+                      "A cognitive architecture for autonomous agent systems implementing a continuous improvement loop.\n\n" +
+                      "## The PMCR-O Cycle\n\n" +
+                      "* **Plan (P)**: Strategic decomposition of intents into actionable steps\n" +
+                      "* **Make (M)**: Materialization of plans into concrete artifacts\n" +
+                      "* **Check (C)**: Validation of artifacts against quality constraints\n" +
+                      "* **Reflect (R)**: Meta-cognitive analysis for convergence determination\n\n" +
+                      "## Architecture\n\n" +
+                      "This API orchestrates communication between four core microservices via gRPC:\n\n" +
+                      "* **PlannerService**: Intent → Execution Plan\n" +
+                      "* **MakerService**: Plan → Artifact\n" +
+                      "* **CheckerService**: Artifact → Validation Report\n" +
+                      "* **ReflectorService**: Validation → Convergence Decision\n\n" +
+                      "## Getting Started\n\n" +
+                      "Use `/orchestrate/run-cycle` for the full PMCR loop, or access individual services directly via their gateway endpoints.\n\n" +
+                      "**Quick Start**: POST to `/orchestrate/run-cycle` with an intent to see the complete cycle in action.",
+        Contact = new OpenApiContact
+        {
+            Name = "PMCR-O System",
+            Email = "support@example.com"
+        },
+        License = new OpenApiLicense
+        {
+            Name = "MIT License",
+            Url = new Uri("https://opensource.org/licenses/MIT")
+        }
+    });
+
+    // XML Comments for detailed documentation
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+
+    // Enable Swagger Annotations
+    options.EnableAnnotations();
+
+    // Add operation filters for better documentation
+    options.CustomSchemaIds(type => type.FullName);
+
+    // Security (if needed in future)
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+});
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
+// --- 6. SWAGGER UI CONFIGURATION ---
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "PMCR-O API v1");
+        options.RoutePrefix = string.Empty; // Serve Swagger UI at root
+        options.DocumentTitle = "PMCR-O Orchestration API";
+        options.DefaultModelsExpandDepth(2);
+        options.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Example);
+        options.DisplayRequestDuration();
+        options.EnableDeepLinking();
+        options.EnableFilter();
+    });
+}
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.OrchestrationApi\ProjectName.OrchestrationApi.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<!-- Add this PropertyGroup to suppress JustMock analyzer messages -->
+	<PropertyGroup>
+		<!-- Suppress JustMock informational messages -->
+		<NoWarn>$(NoWarn);JMA001;JMC001</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" />
+		<PackageReference Include="Grpc.Net.ClientFactory" />
+		<PackageReference Include="Grpc.Tools">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Agents.AI.Workflows" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="OllamaSharp" />
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
+
+		<PackageReference Include="Microsoft.Agents.AI" />
+		<PackageReference Include="Microsoft.Extensions.AI" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Link all protos as Client -->
+		<Protobuf Include="..\ProjectName.PlannerService\Protos\plan.proto" GrpcServices="Client" Link="Protos\plan.proto" />
+		<Protobuf Include="..\ProjectName.MakerService\Protos\make.proto" GrpcServices="Client" Link="Protos\make.proto" />
+		<Protobuf Include="..\ProjectName.CheckerService\Protos\check.proto" GrpcServices="Client" Link="Protos\check.proto" />
+		<Protobuf Include="..\ProjectName.ReflectorService\Protos\reflect.proto" GrpcServices="Client" Link="Protos\reflect.proto" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+	</ItemGroup>
+
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\Properties\launchSettings.json
+------------------------------------------------------------------------------
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5290",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7212;http://localhost:5290",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\Protos\plan.proto
+------------------------------------------------------------------------------
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.PlannerService.Grpc";
+
+package planner;
+
+// =============================================================================
+// PMCR-O PLANNER SERVICE
+// Phase P: Strategic Decomposition - Converts abstract intents into actionable plans
+// =============================================================================
+
+service Planner {
+  // Core Planning Operation
+  rpc CreatePlan (IntentRequest) returns (PlanReply);
+  
+  // Intelligence Gathering (Research/Eyes)
+  rpc GatherIntel (ResearchRequest) returns (ResearchResponse);
+  
+  // Validation & Reflection Support
+  rpc ValidateOutcome (ValidationRequest) returns (ValidationResponse);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+// --- Planning Messages ---
+
+message IntentRequest {
+  string id = 1;
+  string content = 2;
+  map<string, string> context = 3;
+}
+
+message PlanReply {
+  string id = 1;
+  string original_intent_id = 2;
+  repeated string steps = 3;
+  map<string, string> resources = 4;
+  string goal = 5;
+  string analysis = 6;
+  repeated PlanStepMessage detailed_steps = 7;
+}
+
+message PlanStepMessage {
+  int32 order = 1;
+  string action = 2;
+  string tool = 3;
+  string arguments_json = 4;
+  string expected_output = 5;
+}
+
+// --- Research Messages ---
+
+message ResearchRequest {
+  string query = 1;
+  repeated string domains = 2;
+  int32 max_results = 3;
+}
+
+message ResearchResponse {
+  bool success = 1;
+  string intel = 2;
+  repeated ResearchSource sources = 3;
+  string error_message = 4;
+}
+
+message ResearchSource {
+  string url = 1;
+  string title = 2;
+  string snippet = 3;
+  double relevance_score = 4;
+}
+
+// --- Validation Messages ---
+
+message ValidationRequest {
+  string intent = 1;
+  string execution_log = 2;
+  string artifact_content = 3;
+}
+
+message ValidationResponse {
+  bool success = 1;
+  bool is_valid = 2;
+  string validation_json = 3;
+  repeated string issues = 4;
+  double confidence_score = 5;
+  string error_message = 6;
+}
+
+// --- Health Check Messages ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+  map<string, string> details = 3;
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\Services\PlannerService.cs
+------------------------------------------------------------------------------
+using Grpc.Core;
+using Microsoft.Agents.AI;
+using ProjectName.PlannerService.Grpc;
+using ProjectName.PlannerService.Tools; // Needed for ResearchTool if used later
+using System.Globalization;
+
+namespace ProjectName.PlannerService.Services;
+
+public class PlannerService(AIAgent plannerAgent, ILogger<PlannerService> logger) : Planner.PlannerBase
+{
+    // --- MEMORY OPTIMIZATION: Static Readonly Fields ---
+    // Prevents allocating new arrays on every request.
+    private static readonly char[] _lineSeparators = ['\n', '\r'];
+    private static readonly char[] _bulletPointChars = ['-', '*', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ' '];
+
+    public override async Task<PlanReply> CreatePlan(IntentRequest request, ServerCallContext context)
+    {
+        PlannerServiceLog.PlanRequest(logger, request.Content);
+
+        try
+        {
+            // 1. ASK THE AI FOR STEPS
+            // We include the Context in the prompt so the Planner knows the constraints (e.g. language=python).
+            var prompt = string.Format(
+                CultureInfo.InvariantCulture,
+                "INTENT: {0}\nCONTEXT: {1}",
+                request.Content,
+                string.Join(", ", request.Context.Select(x => $"{x.Key}={x.Value}"))
+            );
+
+            var response = await plannerAgent.RunAsync(prompt, cancellationToken: context.CancellationToken);
+            var aiText = response.ToString();
+
+            // 2. PARSE THE STEPS
+            // Optimization: Use the static readonly separators.
+            var steps = aiText.Split(_lineSeparators, StringSplitOptions.RemoveEmptyEntries)
+                              .Where(s => !string.IsNullOrWhiteSpace(s))
+                              .Select(s => s.Trim().TrimStart(_bulletPointChars)) // Clean common list markers
+                              .ToList();
+
+            // 3. BUILD RESPONSE
+            var reply = new PlanReply
+            {
+                Id = Guid.NewGuid().ToString(),
+                OriginalIntentId = request.Id,
+                Goal = $"Achieve: {request.Content}",
+                Analysis = "AI Generated Strategy"
+            };
+
+            reply.Steps.AddRange(steps);
+
+            // Pass through context as resources so the Maker can use them
+            foreach (var kvp in request.Context)
+            {
+                reply.Resources.Add(kvp.Key, kvp.Value);
+            }
+
+            PlannerServiceLog.PlanCreated(logger, reply.Id, steps.Count);
+            return reply;
+        }
+        catch (Exception ex)
+        {
+            PlannerServiceLog.PlanError(logger, ex);
+            return new PlanReply { Goal = "Error", Analysis = ex.Message };
+        }
+    }
+
+    // --- STUBBED METHODS (Required for Interface Compliance) ---
+
+    public override Task<ResearchResponse> GatherIntel(ResearchRequest request, ServerCallContext context)
+    {
+        // Future: Wire up ResearchTool here
+        return Task.FromResult(new ResearchResponse { Success = true, Intel = "Research skipped for now." });
+    }
+
+    public override Task<ValidationResponse> ValidateOutcome(ValidationRequest request, ServerCallContext context)
+    {
+        return Task.FromResult(new ValidationResponse { Success = true, IsValid = true });
+    }
+
+    public override Task<HealthCheckResponse> HealthCheck(HealthCheckRequest request, ServerCallContext context)
+    {
+        return Task.FromResult(new HealthCheckResponse { Status = HealthCheckResponse.Types.ServingStatus.Serving });
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\Services\PlannerServiceLog.cs
+------------------------------------------------------------------------------
+using Microsoft.Extensions.Logging;
+
+namespace ProjectName.PlannerService.Services;
+
+/// <summary>
+/// High-performance logging for PlannerService using source-generated LoggerMessage delegates.
+/// </summary>
+internal static partial class PlannerServiceLog
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "📋 PLANNER: CreatePlan called - Intent: {Intent}")]
+    public static partial void PlanRequest(ILogger logger, string intent);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "✅ Plan {PlanId} created with {StepCount} steps")]
+    public static partial void PlanCreated(ILogger logger, string planId, int stepCount);
+
+    [LoggerMessage(Level = LogLevel.Error, Message = "❌ PLANNER: Error creating plan")]
+    public static partial void PlanError(ILogger logger, Exception ex);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "🔍 PLANNER: GatherIntel - Query: {Query}")]
+    public static partial void ResearchRequest(ILogger logger, string query);
+
+    [LoggerMessage(Level = LogLevel.Error, Message = "❌ PLANNER: Research failed")]
+    public static partial void ResearchError(ILogger logger, Exception ex);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "✅ PLANNER: ValidateOutcome - Intent: {Intent}")]
+    public static partial void ValidationRequest(ILogger logger, string intent);
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\Tools\ResearchTool.cs
+------------------------------------------------------------------------------
+using System.Globalization;
+using System.Text;
+
+namespace ProjectName.PlannerService.Tools;
+
+/// <summary>
+/// I AM the Eyes of the Planner.
+/// I gather intelligence so the Plan is based on reality, not hallucination.
+/// </summary>
+public partial class ResearchTool(
+    IHttpClientFactory httpClientFactory,
+    ILogger<ResearchTool> logger) : IDisposable
+{
+    private HttpClient? _httpClient;
+    private bool _disposed;
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "🕵️ PLANNER EYES: Researching '{Query}'...")]
+    private partial void LogResearchStart(string query);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "✅ Research complete. Found {Length} chars of intel.")]
+    private partial void LogResearchComplete(int length);
+
+    private HttpClient HttpClient => _httpClient ??= httpClientFactory.CreateClient();
+
+    public string SearchAndGather(string query)
+    {
+        LogResearchStart(query);
+
+        var sb = new StringBuilder();
+        sb.AppendLine(CultureInfo.InvariantCulture, $"--- INTELLIGENCE REPORT: {query} ---");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Timestamp: {DateTime.UtcNow}");
+
+        // SIMULATION LOGIC: 
+        // In a Production env, this calls Bing Search API or Google Custom Search.
+        // For your Sovereign setup, we simulate the "Right Answer" for your specific domains.
+
+        if (query.Contains("Ramsey", StringComparison.OrdinalIgnoreCase) ||
+            query.Contains("Property", StringComparison.OrdinalIgnoreCase) ||
+            query.Contains("Beacon", StringComparison.OrdinalIgnoreCase))
+        {
+            sb.AppendLine(">> TARGET IDENTIFIED: Ramsey County Beacon System");
+            sb.AppendLine("Base URL: https://beacon.schneidercorp.com/");
+            sb.AppendLine("Context: This is the official GIS property search portal.");
+            sb.AppendLine("Workflow Strategy:");
+            sb.AppendLine("  1. Navigate to Search Page (PageID=8396).");
+            sb.AppendLine("  2. Input Selectors: input[id$='txtStreetNumber'], input[id$='txtStreetName']");
+            sb.AppendLine("  3. Action: Click Search.");
+            sb.AppendLine("  4. Extraction: Parse the Results Grid.");
+        }
+        else if (query.Contains("Fibonacci", StringComparison.OrdinalIgnoreCase))
+        {
+            sb.AppendLine(">> KNOWLEDGE RECALLED: Fibonacci Sequence");
+            sb.AppendLine("Formula: F(n) = F(n-1) + F(n-2)");
+            sb.AppendLine("Code Pattern: Recursive or Iterative loop required.");
+        }
+        else if (query.Contains("News", StringComparison.OrdinalIgnoreCase))
+        {
+            sb.AppendLine(">> SOURCE IDENTIFIED: Hacker News / Tech Sources");
+            sb.AppendLine("URL: https://news.ycombinator.com/");
+        }
+        else
+        {
+            // Generic fallback
+            sb.AppendLine(">> RESULT: General knowledge applied.");
+            sb.AppendLine("Status: No specific external documentation found in local simulation.");
+            sb.AppendLine("Recommendation: Proceed with standard toolset (Browser/Coding).");
+        }
+
+        LogResearchComplete(sb.Length);
+        return sb.ToString();
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                _httpClient?.Dispose();
+            }
+            _disposed = true;
+        }
+    }
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\appsettings.Development.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\appsettings.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "Kestrel": {
+    "EndpointDefaults": {
+      "Protocols": "Http2"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\Program.cs
+------------------------------------------------------------------------------
+using Microsoft.Agents.AI;
+using Microsoft.Extensions.AI;
+using OllamaSharp;
+using ProjectName.PlannerService.Services;
+using ProjectName.PlannerService.Tools;
+using Serilog;
+using System.Globalization;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+// Logging
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture));
+
+// --- 1. THE BRAIN ---
+var ollamaUrl = builder.Configuration["Ollama:Endpoint"] ?? "http://host.docker.internal:11434";
+var model = builder.Configuration["Ollama:Model"] ?? "qwen2.5-coder";
+
+builder.Services.AddChatClient(new OllamaApiClient(new Uri(ollamaUrl), model));
+
+// --- 2. THE PLANNER AGENT ---
+builder.Services.AddSingleton<AIAgent>(sp =>
+{
+    var chatClient = sp.GetRequiredService<IChatClient>();
+    return chatClient.CreateAIAgent(
+        name: "Planner",
+        instructions: """
+            IDENTITY: You are a Strategic Planner.
+            TASK: Break down the user's intent into a sequential, actionable list of steps.
+            OUTPUT FORMAT:
+            - Step 1
+            - Step 2
+            - Step 3
+            CONSTRAINT: Do not be chatty. Return ONLY the list of steps.
+            """);
+});
+
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<ResearchTool>();
+builder.Services.AddGrpc();
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+app.MapGrpcService<PlannerService>();
+app.MapGet("/", () => "Planner Service (Intelligent) Active");
+
+app.Run();
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.PlannerService\ProjectName.PlannerService.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<UserSecretsId>0ea0cb4b-e5f4-45e7-909f-512c8ff0d10</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\plan.proto" GrpcServices="Server" />
+		<PackageReference Include="Grpc.AspNetCore" />
+		<PackageReference Include="Grpc.Tools" PrivateAssets="All" />
+		<PackageReference Include="Google.Protobuf" />
+
+		<!-- INTELLIGENCE UPGRADE -->
+		<PackageReference Include="Microsoft.Extensions.AI" />
+		<PackageReference Include="OllamaSharp" />
+		<PackageReference Include="Microsoft.Agents.AI" />
+		<PackageReference Include="Serilog.AspNetCore" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+	</ItemGroup>
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\Properties\launchSettings.json
+------------------------------------------------------------------------------
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5078"
+    },
+    "https": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7253;http://localhost:5078"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\Protos\reflect.proto
+------------------------------------------------------------------------------
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.ReflectorService.Grpc";
+
+package reflector;
+
+// =============================================================================
+// PMCR-O REFLECTOR SERVICE
+// Phase R: Meta-Cognition - Analyzes cycles and determines convergence
+// =============================================================================
+
+service Reflector {
+  // Core Reflection Operation
+  rpc AnalyzeCycle (ReflectRequest) returns (ReflectReply);
+  
+  // Analyze Multiple Cycles (Learning)
+  rpc AnalyzeHistory (HistoryRequest) returns (HistoryReply);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+message ReflectRequest {
+  string cycle_id = 1;
+  bool is_valid = 2;
+  repeated string issues = 3;
+  double confidence_score = 4;
+  string original_intent = 5;
+  string artifact_content = 6;
+  map<string, string> context = 7;
+}
+
+message ReflectReply {
+  enum Decision {
+    CONVERGED = 0;
+    ITERATE = 1;
+    ABORT = 2;
+    ESCALATE = 3;
+  }
+  
+  Decision decision = 1;
+  string insight = 2;
+  string optimized_intent = 3;
+  repeated string recommendations = 4;
+  double convergence_score = 5;
+  map<string, string> metadata = 6;
+}
+
+// --- History Analysis ---
+
+message HistoryRequest {
+  repeated CycleRecord cycles = 1;
+  string analysis_type = 2;  // "trend", "pattern", "optimization"
+}
+
+message CycleRecord {
+  string cycle_id = 1;
+  string intent = 2;
+  bool was_valid = 3;
+  double confidence = 4;
+  int64 timestamp = 5;
+}
+
+message HistoryReply {
+  string summary = 1;
+  repeated Pattern patterns = 2;
+  repeated string insights = 3;
+  double overall_success_rate = 4;
+}
+
+message Pattern {
+  string pattern_type = 1;
+  string description = 2;
+  int32 occurrences = 3;
+  double confidence = 4;
+}
+
+// --- Health Check ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\Services\ReflectorService.cs
+------------------------------------------------------------------------------
+using Grpc.Core;
+using ProjectName.ReflectorService.Grpc;
+
+namespace ProjectName.ReflectorService.Services;
+
+/// <summary>
+/// Implements the Reflector gRPC service responsible for meta-cognitive analysis.
+/// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="ReflectorService"/> class.
+/// </remarks>
+/// <param name="logger">The logger for observability.</param>
+public partial class ReflectorService(ILogger<ReflectorService> logger) : Reflector.ReflectorBase
+{
+    [LoggerMessage(
+        EventId = 300,
+        Level = LogLevel.Information,
+        Message = "gRPC REFLECTOR: Analyzing cycle. Valid: {IsValid}, Score: {Score}")]
+    private partial void LogAnalyzing(bool isValid, double score);
+
+    /// <summary>
+    /// Analyzes the results of a Make/Check cycle to determine convergence.
+    /// </summary>
+    /// <param name="request">The results from the Checker.</param>
+    /// <param name="context">The gRPC context.</param>
+    /// <returns>A reflection on the cycle.</returns>
+    public override Task<ReflectReply> AnalyzeCycle(ReflectRequest request, ServerCallContext context)
+    {
+        LogAnalyzing(request.IsValid, request.ConfidenceScore);
+
+        var reply = new ReflectReply();
+
+        if (request.IsValid)
+        {
+            reply.Insight = "Cycle converged. Artifact is production ready.";
+            reply.OptimizedIntent = ""; // Empty means done
+        }
+        else
+        {
+            reply.Insight = "Cycle failed validation. Intent refined for clarity.";
+            reply.OptimizedIntent = "Refined Intent: Ensure artifact content is not empty.";
+        }
+
+        return Task.FromResult(reply);
+    }
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\appsettings.Development.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\appsettings.json
+------------------------------------------------------------------------------
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "Kestrel": {
+    "EndpointDefaults": {
+      "Protocols": "Http2"
+    }
+  }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\Dockerfile
+------------------------------------------------------------------------------
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
+COPY ["Directory.Build.targets", "."]
+COPY ["nuget.config", "."]
+COPY ["src/ProjectName.ReflectorService/ProjectName.ReflectorService.csproj", "src/ProjectName.ReflectorService/"]
+RUN dotnet restore "./src/ProjectName.ReflectorService/ProjectName.ReflectorService.csproj"
+COPY . .
+WORKDIR "/src/src/ProjectName.ReflectorService"
+RUN dotnet build "./ProjectName.ReflectorService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./ProjectName.ReflectorService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ProjectName.ReflectorService.dll"]
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\Program.cs
+------------------------------------------------------------------------------
+using ProjectName.ReflectorService.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+// Add services to the container.
+builder.Services.AddGrpc();
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
+// Configure the HTTP request pipeline.
+app.MapGrpcService<ReflectorService>();
+app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+
+app.Run();
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ReflectorService\ProjectName.ReflectorService.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<UserSecretsId>436e1287-349e-4297-b954-c9daad712985</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\reflect.proto" GrpcServices="Server" />
+		<PackageReference Include="Grpc.AspNetCore" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
+	</ItemGroup>
+
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ServiceDefaults\Extensions.cs
+------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.ServiceDiscovery;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
+
+namespace Microsoft.Extensions.Hosting;
+
+/// <summary>
+/// Adds common Aspire services: service discovery, resilience, health checks, and OpenTelemetry.
+/// This project should be referenced by each service project in your solution.
+/// To learn more about using this project, see https://aka.ms/dotnet/aspire/service-defaults
+/// </summary>
+public static class Extensions
+{
+    private const string HealthEndpointPath = "/health";
+    private const string AlivenessEndpointPath = "/alive";
+
+    /// <summary>
+    /// Adds production-ready defaults including OpenTelemetry, Health Checks, and Service Discovery.
+    /// </summary>
+    /// <typeparam name="TBuilder">The type of the host application builder.</typeparam>
+    /// <param name="builder">The host application builder.</param>
+    /// <returns>The builder instance for chaining.</returns>
+    public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    {
+        builder.ConfigureOpenTelemetry();
+
+        builder.AddDefaultHealthChecks();
+
+        builder.Services.AddServiceDiscovery();
+
+        builder.Services.ConfigureHttpClientDefaults(http =>
+        {
+            // Turn on resilience by default
+            http.AddStandardResilienceHandler();
+
+            // Turn on service discovery by default
+            http.AddServiceDiscovery();
+        });
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Configures OpenTelemetry logging, metrics, and tracing.
+    /// </summary>
+    /// <typeparam name="TBuilder">The type of the host application builder.</typeparam>
+    /// <param name="builder">The host application builder.</param>
+    /// <returns>The builder instance for chaining.</returns>
+    public static TBuilder ConfigureOpenTelemetry<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    {
+        builder.Logging.AddOpenTelemetry(logging =>
+        {
+            logging.IncludeFormattedMessage = true;
+            logging.IncludeScopes = true;
+        });
+
+        builder.Services.AddOpenTelemetry()
+            .WithMetrics(metrics =>
+            {
+                metrics.AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation();
+            })
+            .WithTracing(tracing =>
+            {
+                tracing.AddSource(builder.Environment.ApplicationName)
+                    .AddAspNetCoreInstrumentation(tracing =>
+                        // Exclude health check requests from tracing
+                        tracing.Filter = context =>
+                            !context.Request.Path.StartsWithSegments(HealthEndpointPath)
+                            && !context.Request.Path.StartsWithSegments(AlivenessEndpointPath)
+                    )
+                    // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
+                    //.AddGrpcClientInstrumentation()
+                    .AddHttpClientInstrumentation();
+            });
+
+        builder.AddOpenTelemetryExporters();
+
+        return builder;
+    }
+
+    private static TBuilder AddOpenTelemetryExporters<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    {
+        var useOtlpExporter = !string.IsNullOrWhiteSpace(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]);
+
+        if (useOtlpExporter)
+        {
+            builder.Services.AddOpenTelemetry().UseOtlpExporter();
+        }
+
+        // Uncomment the following lines to enable the Azure Monitor exporter (requires the Azure.Monitor.OpenTelemetry.AspNetCore package)
+        //if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]))
+        //{
+        //    builder.Services.AddOpenTelemetry()
+        //       .UseAzureMonitor();
+        //}
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Adds default health checks to the application.
+    /// </summary>
+    /// <typeparam name="TBuilder">The type of the host application builder.</typeparam>
+    /// <param name="builder">The host application builder.</param>
+    /// <returns>The builder instance for chaining.</returns>
+    public static TBuilder AddDefaultHealthChecks<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    {
+        builder.Services.AddHealthChecks()
+            // Add a default liveness check to ensure app is responsive
+            .AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Maps the default endpoints for health checks and aliveness.
+    /// </summary>
+    /// <param name="app">The web application.</param>
+    /// <returns>The web application for chaining.</returns>
+    public static WebApplication MapDefaultEndpoints(this WebApplication app)
+    {
+        // Adding health checks endpoints to applications in non-development environments has security implications.
+        // See https://aka.ms/dotnet/aspire/healthchecks for details before enabling these endpoints in non-development environments.
+        if (app.Environment.IsDevelopment())
+        {
+            // All health checks must pass for app to be considered ready to accept traffic after starting
+            app.MapHealthChecks(HealthEndpointPath);
+
+            // Only health checks tagged with the "live" tag must pass for app to be considered alive
+            app.MapHealthChecks(AlivenessEndpointPath, new HealthCheckOptions
+            {
+                Predicate = r => r.Tags.Contains("live")
+            });
+        }
+
+        return app;
+    }
+}
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Only specific overrides go here. 
+         Everything else is inherited from Directory.Build.props -->
+		<IsAspireSharedProject>true</IsAspireSharedProject>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<!-- Packages managed by Directory.Packages.props -->
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" />
+		<PackageReference Include="Microsoft.Extensions.ServiceDiscovery" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+		<PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+	</ItemGroup>
+
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.Shared\Cognitive\CognitiveFrame.cs
+------------------------------------------------------------------------------
+namespace ProjectName.Shared.Cognitive;
+
+/// <summary>
+/// The Cognitive Frame is the container for a single cycle of reasoning.
+/// It wraps the raw Intent with Identity, Strategy, and Constraints.
+/// </summary>
+/// <typeparam name="TIntent">The specific type of data we are processing.</typeparam>
+public class CognitiveFrame<TIntent>
+{
+    // 1. Identity Layer (Who am I?)
+    public Persona Persona { get; set; } = new("Default", "Neutral", "Assistant");
+
+    // 2. Data Layer (What am I working on?)
+    public TIntent Intent { get; set; }
+
+    // 3. Context Layer (What is the environment?)
+    // Holds dynamic state like "BrowserIsOpen", "FileExists", "PreviousErrors"
+    public CognitiveContext Context { get; set; } = new();
+
+    // 4. Strategy Layer (How should I think?)
+    // Defines the algorithm: Chain of Thought, Tree of Thought, etc.
+    public ThinkingStrategy ThoughtProcess { get; set; } = new ChainOfThought();
+
+    // 5. Learning Layer (Few-Shot Examples)
+    // Injects previous successful patterns to guide the model.
+    public List<Example<TIntent>> LearningHistory { get; set; } = new();
+
+    // 6. Constraints (The Safety Rails)
+    public Constraints Constraints { get; set; } = new();
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.Shared\Cognitive\Components.cs
+------------------------------------------------------------------------------
+namespace ProjectName.Shared.Cognitive;
+
+// --- IDENTITY ---
+public record Persona(string Role, string Voice, string Manifestation);
+
+// --- STRATEGY ---
+public abstract record ThinkingStrategy(string Name, string Instruction);
+
+public record ChainOfThought()
+    : ThinkingStrategy("Chain of Thought", "Think step-by-step linearly. Do not skip steps.");
+
+public record TreeOfThought(int Branches)
+    : ThinkingStrategy("Tree of Thought", $"Explore {Branches} distinct alternative paths before converging on a solution.");
+
+public record GraphOfThought()
+    : ThinkingStrategy("Graph of Thought", "Connect related concepts in a network. Identify dependencies before concluding.");
+
+// --- LEARNING ---
+public record Example<T>(T Input, string ExpectedOutput, string Explanation);
+
+// --- BOUNDARIES ---
+public class Constraints
+{
+    public List<string> MustDo { get; set; } = new();
+    public List<string> MustNotDo { get; set; } = new();
+    public string OutputFormat { get; set; } = "JSON";
+}
+
+// --- CONTEXT ---
+public class CognitiveContext : Dictionary<string, object>
+{
+    public void AddSystemState(string key, object value) => this[key] = value;
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.Shared\Cognitive\PromptRenderer.cs
+------------------------------------------------------------------------------
+using System.Text;
+using System.Text.Json;
+
+namespace ProjectName.Shared.Cognitive;
+
+public static class PromptRenderer
+{
+    private static readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
+
+    public static string Render<T>(CognitiveFrame<T> frame)
+    {
+        var sb = new StringBuilder();
+
+        // 1. Render Persona (Identity)
+        sb.AppendLine("@persona {");
+        sb.AppendLine($"  role: '{frame.Persona.Role}'");
+        sb.AppendLine($"  voice: '{frame.Persona.Voice}'");
+        sb.AppendLine($"  manifestation: '{frame.Persona.Manifestation}'");
+        sb.AppendLine("}");
+
+        // 2. Render Strategy (Thought Process)
+        sb.AppendLine($"@thought_model {{ {frame.ThoughtProcess.Name}: {frame.ThoughtProcess.Instruction} }}");
+
+        // 3. Render Learning (Few-Shot)
+        if (frame.LearningHistory.Any())
+        {
+            sb.AppendLine("@examples {");
+            foreach (var ex in frame.LearningHistory)
+            {
+                // We serialize the Input logic to keep it readable
+                sb.AppendLine($"  input: {JsonSerializer.Serialize(ex.Input)}");
+                sb.AppendLine($"  output: {ex.ExpectedOutput}");
+                sb.AppendLine($"  insight: {ex.Explanation}");
+            }
+            sb.AppendLine("}");
+        }
+
+        // 4. Render Context
+        sb.AppendLine("@context {");
+        foreach (var kvp in frame.Context)
+        {
+            sb.AppendLine($"  {kvp.Key}: {kvp.Value}");
+        }
+        sb.AppendLine("}");
+
+        // 5. Render Constraints
+        sb.AppendLine("@constraints {");
+        foreach (var rule in frame.Constraints.MustDo) sb.AppendLine($"  DO: {rule}");
+        foreach (var rule in frame.Constraints.MustNotDo) sb.AppendLine($"  NO: {rule}");
+        sb.AppendLine($"  FORMAT: {frame.Constraints.OutputFormat}");
+        sb.AppendLine("}");
+
+        // 6. Render The Intent (The Payload)
+        sb.AppendLine("@intent {");
+        sb.AppendLine(JsonSerializer.Serialize(frame.Intent, _jsonOptions));
+        sb.AppendLine("}");
+
+        return sb.ToString();
+    }
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.Shared\Models\DomainModels.cs
+------------------------------------------------------------------------------
+namespace ProjectName.Shared.Models;
+
+/// <summary>
+/// Represents the seed intent provided by the user or system.
+/// </summary>
+/// <param name="Id">Unique identifier for this intent.</param>
+/// <param name="Content">The raw textual description of the goal.</param>
+/// <param name="Context">Additional key-value metadata (e.g., environment, constraints).</param>
+public record Intent(
+    string Id,
+    string Content,
+    Dictionary<string, string> Context
+);
+
+/// <summary>
+/// Represents the structured execution strategy derived from the Intent.
+/// </summary>
+/// <param name="Id">Unique identifier for this plan.</param>
+/// <param name="OriginalIntentId">Link back to the seed intent.</param>
+/// <param name="Steps">Ordered list of execution steps.</param>
+/// <param name="Resources">Required resources identified for this plan.</param>
+public record Plan(
+    string Id,
+    string OriginalIntentId,
+    List<string> Steps,
+    Dictionary<string, string> Resources
+);
+
+/// <summary>
+/// Represents a materialized output created by the Maker.
+/// </summary>
+/// <param name="Id">Unique identifier for the artifact.</param>
+/// <param name="PlanId">Link back to the plan that generated it.</param>
+/// <param name="Content">The actual content (code, text, config).</param>
+/// <param name="ArtifactType">The type of artifact (e.g., "CSharp", "Markdown").</param>
+public record Artifact(
+    string Id,
+    string PlanId,
+    string Content,
+    string ArtifactType
+);
+
+/// <summary>
+/// Represents the validation result from the Checker.
+/// </summary>
+/// <param name="IsValid">True if the artifact meets all criteria.</param>
+/// <param name="Issues">List of detected problems or warnings.</param>
+/// <param name="ConfidenceScore">A score (0-100) indicating validation confidence.</param>
+public record Validation(
+    bool IsValid,
+    string[] Issues,
+    double ConfidenceScore
+);
+
+/// <summary>
+/// Represents the meta-cognitive analysis from the Reflector.
+/// </summary>
+/// <param name="Insight">Human-readable analysis of the cycle.</param>
+/// <param name="OptimizedIntent">A refined intent for the next cycle (if iterating).</param>
+public record Reflection(
+    string Insight,
+    string OptimizedIntent
+);
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\src\ProjectName.Shared\ProjectName.Shared.csproj
+------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" />
+  </ItemGroup>
+
+
+</Project>
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\Directory.Build.props
+------------------------------------------------------------------------------
+<Project>
+	<PropertyGroup>
+		<!-- GLOBAL LAWS -->
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>preview</LangVersion>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<!-- Added CA1716 to suppress "Shared" namespace error -->
+		<NoWarn>$(NoWarn);1591;CA1716</NoWarn>
+	</PropertyGroup>
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\Directory.Build.targets
+------------------------------------------------------------------------------
+<Project>
+  <Target Name="PrintProjectInfo" BeforeTargets="Build">
+    <Message Text="Building $(MSBuildProjectName) in configuration $(Configuration)..." Importance="high" />
+  </Target>
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\Directory.Packages.props
+------------------------------------------------------------------------------
+<Project>
+  <!--
+    PMCR-O GLOBAL PACKAGE POLICY
+    Central Package Management (CPM) enabled.
+    Explicit versions here. No versions in .csproj files.
+  -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- ASPIRE & CLOUD NATIVE (The Physics) -->
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="13.0.1" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.0.1" />
+    <PackageVersion Include="Google.Protobuf" Version="3.33.4" />
+    <PackageVersion Include="Grpc.AspNetCore" Version="2.76.0" />
+    <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.76.0" />
+    <PackageVersion Include="Grpc.Tools" Version="2.76.0" />
+    <!-- AGENTS & AI (The Mind) - Updated to latest compatible versions -->
+    <!-- Use the latest 1.0.0-preview versions from January 2026 -->
+    <PackageVersion Include="HtmlAgilityPack" Version="1.12.4" />
+    <PackageVersion Include="Microsoft.Agents.AI" Version="1.0.0-preview.260108.1" />
+    <PackageVersion Include="Microsoft.Agents.AI.Workflows" Version="1.0.0-preview.260108.1" />
+    <!-- Use stable 10.2.0 release for Microsoft.Extensions.AI -->
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.AI" Version="10.2.0" />
+    <PackageVersion Include="Microsoft.Extensions.AI.Abstractions" Version="10.2.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.2.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.2.0" />
+    <!-- OBSERVABILITY (The Eyes) -->
+    <PackageVersion Include="Microsoft.Playwright" Version="1.57.0" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+    <PackageVersion Include="ModelContextProtocol" Version="0.6.0-preview.1" />
+    <PackageVersion Include="Mono.Cecil" Version="0.11.6" />
+    <PackageVersion Include="OllamaSharp" Version="5.4.12" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.14.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.14.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.14.0" />
+    <!-- MCP & TOOLS (The Nervous System) -->
+    <PackageVersion Include="ModelContextProtocol.AspNetCore" Version="0.6.0-preview.1" />
+    <PackageVersion Include="ModelContextProtocol.Client" Version="0.5.0-preview" />
+    <!-- ML.NET (The Subconscious) -->
+    <PackageVersion Include="Microsoft.ML" Version="4.0.0" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.1.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="10.1.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="10.1.0" />
+  </ItemGroup>
+</Project>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\nuget.config
+------------------------------------------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<packageSources>
+		<clear />
+		<add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+		<!-- Keeping Telerik if you need it, but mapping standard libs to nuget.org -->
+		<add key="TelerikNuGetV3" value="https://nuget.telerik.com/v3/index.json" />
+	</packageSources>
+	<packageSourceMapping>
+		<!-- 
+       STRANGE LOOP PROTOCOL:
+       We explicitly map generic namespaces to nuget.org to prevent supply chain confusion.
+    -->
+		<packageSource key="nuget.org">
+			<package pattern="*" />
+		</packageSource>
+		<packageSource key="TelerikNuGetV3">
+			<package pattern="Telerik.*" />
+			<package pattern="Kendo.*" />
+		</packageSource>
+	</packageSourceMapping>
+</configuration>
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\ProjectName_Collection.json
+------------------------------------------------------------------------------
+{
+  "info": {
+    "_postman_id": "b3e54555-1234-4567-8901-abcdef123456",
+    "name": "PMCR-O System Validation (Aspire)",
+    "description": "Validation collection for ProjectName, aligned with .NET Aspire Dashboard ports.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Orchestrator (The Brain)",
+      "item": [
+        {
+          "name": "Run Full Cycle (P-M-C-R)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"intent-{{$guid}}\",\r\n  \"content\": \"Create a Python script that calculates the factorial of a number recursively.\",\r\n  \"context\": {\r\n    \"environment\": \"development\",\r\n    \"user_level\": \"expert\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/orchestrate/run-cycle",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "orchestrate",
+                "run-cycle"
+              ]
+            },
+            "description": "Triggers the full PMCR loop. Note: No /api prefix."
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{orchestrator_url}}/orchestrate/health",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "orchestrate",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Microservice Gateways",
+      "item": [
+        {
+          "name": "Planner: Create Plan",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"intent-manual-01\",\r\n  \"content\": \"Deploy a docker container with Nginx.\",\r\n  \"context\": {\r\n    \"os\": \"linux\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/planner",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "planner"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Maker: Make Artifact",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"plan-manual-01\",\r\n  \"originalIntentId\": \"intent-manual-01\",\r\n  \"steps\": [\r\n    \"Pull Nginx Image\",\r\n    \"Configure Port Mapping\",\r\n    \"Run Container\"\r\n  ],\r\n  \"resources\": {\r\n    \"runtime\": \"docker\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/maker",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "maker"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Checker: Validate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"artifact-manual-01\",\r\n  \"planId\": \"plan-manual-01\",\r\n  \"content\": \"docker run -d -p 80:80 nginx\",\r\n  \"artifactType\": \"Script/Bash\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/checker",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "checker"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reflector: Analyze",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"isValid\": false,\r\n  \"issues\": [\r\n    \"Security warning: running as root\",\r\n    \"Missing restart policy\"\r\n  ],\r\n  \"confidenceScore\": 65.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/reflector",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "reflector"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. MCP Server (Diagnostic)",
+      "item": [
+        {
+          "name": "Ping MCP",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{mcp_url}}/",
+              "host": [
+                "{{mcp_url}}"
+              ],
+              "path": [
+                ""
+              ]
+            },
+            "description": "Checks if the MCP server container is reachable via HTTP."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "orchestrator_url",
+      "value": "https://orchestration-api-projectname.dev.localhost:7296",
+      "type": "string"
+    },
+    {
+      "key": "mcp_url",
+      "value": "https://mcp-server-projectname.dev.localhost:7184",
+      "type": "string"
+    }
+  ]
+}
+
+
+------------------------------------------------------------------------------
+FILE: T:\Company\ProjectName\README.md
+------------------------------------------------------------------------------
+# ProjectName
+
+

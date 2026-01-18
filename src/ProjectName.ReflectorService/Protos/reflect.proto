@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.ReflectorService.Grpc";
+
+package reflector;
+
+// =============================================================================
+// PMCR-O REFLECTOR SERVICE
+// Phase R: Meta-Cognition - Analyzes cycles and determines convergence
+// =============================================================================
+
+service Reflector {
+  // Core Reflection Operation
+  rpc AnalyzeCycle (ReflectRequest) returns (ReflectReply);
+  
+  // Analyze Multiple Cycles (Learning)
+  rpc AnalyzeHistory (HistoryRequest) returns (HistoryReply);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+message ReflectRequest {
+  string cycle_id = 1;
+  bool is_valid = 2;
+  repeated string issues = 3;
+  double confidence_score = 4;
+  string original_intent = 5;
+  string artifact_content = 6;
+  map<string, string> context = 7;
+}
+
+message ReflectReply {
+  enum Decision {
+    CONVERGED = 0;
+    ITERATE = 1;
+    ABORT = 2;
+    ESCALATE = 3;
+  }
+  
+  Decision decision = 1;
+  string insight = 2;
+  string optimized_intent = 3;
+  repeated string recommendations = 4;
+  double convergence_score = 5;
+  map<string, string> metadata = 6;
+}
+
+// --- History Analysis ---
+
+message HistoryRequest {
+  repeated CycleRecord cycles = 1;
+  string analysis_type = 2;  // "trend", "pattern", "optimization"
+}
+
+message CycleRecord {
+  string cycle_id = 1;
+  string intent = 2;
+  bool was_valid = 3;
+  double confidence = 4;
+  int64 timestamp = 5;
+}
+
+message HistoryReply {
+  string summary = 1;
+  repeated Pattern patterns = 2;
+  repeated string insights = 3;
+  double overall_success_rate = 4;
+}
+
+message Pattern {
+  string pattern_type = 1;
+  string description = 2;
+  int32 occurrences = 3;
+  double confidence = 4;
+}
+
+// --- Health Check ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+}

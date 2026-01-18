@@ -1,0 +1,31 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# All files
+[*]
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Code files
+[*.{cs,csx,vb,vbx}]
+indent_size = 4
+indent_style = space
+
+# Suppress JustMock analyzer messages (these are informational only)
+dotnet_diagnostic.JMA001.severity = none
+dotnet_diagnostic.JMC001.severity = none
+
+# If you want to suppress CA1848 in specific files (optional)
+# dotnet_diagnostic.CA1848.severity = suggestion
+
+[*.json]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.proto]
+indent_size = 2

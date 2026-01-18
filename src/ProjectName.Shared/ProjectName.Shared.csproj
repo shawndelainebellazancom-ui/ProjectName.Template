@@ -6,10 +6,5 @@
     <PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
 
-	<ItemGroup>
-		<!-- Ensure Protos are visible in the solution explorer but not compiled here
-         (Since we link them in the specific Service/API projects) -->
-		<None Include="Protos\**\*.proto" />
-	</ItemGroup>
 
 </Project>

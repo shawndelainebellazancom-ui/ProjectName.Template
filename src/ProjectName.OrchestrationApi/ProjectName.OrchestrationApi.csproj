@@ -1,33 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+	<!-- Add this PropertyGroup to suppress JustMock analyzer messages -->
+	<PropertyGroup>
+		<!-- Suppress JustMock informational messages -->
+		<NoWarn>$(NoWarn);JMA001;JMC001</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Google.Protobuf" />
-    <PackageReference Include="Grpc.Net.ClientFactory" />
-    <PackageReference Include="Grpc.Tools">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Agents.AI.Workflows" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-    <PackageReference Include="OllamaSharp" />
-    <PackageReference Include="Swashbuckle.AspNetCore" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
-	  
-	  <PackageReference Include="Microsoft.Agents.AI" />
-	  <PackageReference Include="Microsoft.Extensions.AI" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" />
+		<PackageReference Include="Grpc.Net.ClientFactory" />
+		<PackageReference Include="Grpc.Tools">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Agents.AI.Workflows" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="OllamaSharp" />
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
+
+		<PackageReference Include="Microsoft.Agents.AI" />
+		<PackageReference Include="Microsoft.Extensions.AI" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<!-- Link all protos as Client -->
-		<Protobuf Include="..\ProjectName.Shared\Protos\plan.proto" GrpcServices="Client" Link="Protos\plan.proto" />
-		<Protobuf Include="..\ProjectName.Shared\Protos\make.proto" GrpcServices="Client" Link="Protos\make.proto" />
-		<Protobuf Include="..\ProjectName.Shared\Protos\check.proto" GrpcServices="Client" Link="Protos\check.proto" />
-		<Protobuf Include="..\ProjectName.Shared\Protos\reflect.proto" GrpcServices="Client" Link="Protos\reflect.proto" />
+		<Protobuf Include="..\ProjectName.PlannerService\Protos\plan.proto" GrpcServices="Client" Link="Protos\plan.proto" />
+		<Protobuf Include="..\ProjectName.MakerService\Protos\make.proto" GrpcServices="Client" Link="Protos\make.proto" />
+		<Protobuf Include="..\ProjectName.CheckerService\Protos\check.proto" GrpcServices="Client" Link="Protos\check.proto" />
+		<Protobuf Include="..\ProjectName.ReflectorService\Protos\reflect.proto" GrpcServices="Client" Link="Protos\reflect.proto" />
 	</ItemGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\ProjectName.ServiceDefaults\ProjectName.ServiceDefaults.csproj" />
 		<ProjectReference Include="..\ProjectName.Shared\ProjectName.Shared.csproj" />
 	</ItemGroup>
-
 
 </Project>

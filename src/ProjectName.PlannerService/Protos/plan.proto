@@ -1,0 +1,111 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.PlannerService.Grpc";
+
+package planner;
+
+// =============================================================================
+// PMCR-O PLANNER SERVICE
+// Phase P: Strategic Decomposition - Converts abstract intents into actionable plans
+// =============================================================================
+
+service Planner {
+  // Core Planning Operation
+  rpc CreatePlan (IntentRequest) returns (PlanReply);
+  
+  // Intelligence Gathering (Research/Eyes)
+  rpc GatherIntel (ResearchRequest) returns (ResearchResponse);
+  
+  // Validation & Reflection Support
+  rpc ValidateOutcome (ValidationRequest) returns (ValidationResponse);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+// --- Planning Messages ---
+
+message IntentRequest {
+  string id = 1;
+  string content = 2;
+  map<string, string> context = 3;
+}
+
+message PlanReply {
+  string id = 1;
+  string original_intent_id = 2;
+  repeated string steps = 3;
+  map<string, string> resources = 4;
+  string goal = 5;
+  string analysis = 6;
+  repeated PlanStepMessage detailed_steps = 7;
+}
+
+message PlanStepMessage {
+  int32 order = 1;
+  string action = 2;
+  string tool = 3;
+  string arguments_json = 4;
+  string expected_output = 5;
+}
+
+// --- Research Messages ---
+
+message ResearchRequest {
+  string query = 1;
+  repeated string domains = 2;
+  int32 max_results = 3;
+}
+
+message ResearchResponse {
+  bool success = 1;
+  string intel = 2;
+  repeated ResearchSource sources = 3;
+  string error_message = 4;
+}
+
+message ResearchSource {
+  string url = 1;
+  string title = 2;
+  string snippet = 3;
+  double relevance_score = 4;
+}
+
+// --- Validation Messages ---
+
+message ValidationRequest {
+  string intent = 1;
+  string execution_log = 2;
+  string artifact_content = 3;
+}
+
+message ValidationResponse {
+  bool success = 1;
+  bool is_valid = 2;
+  string validation_json = 3;
+  repeated string issues = 4;
+  double confidence_score = 5;
+  string error_message = 6;
+}
+
+// --- Health Check Messages ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+  map<string, string> details = 3;
+}

@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.CheckerService.Grpc";
+
+package checker;
+
+// =============================================================================
+// PMCR-O CHECKER SERVICE
+// Phase C: Validation - Ensures artifacts meet quality constraints
+// =============================================================================
+
+service Checker {
+  // Core Validation Operation
+  rpc ValidateArtifact (CheckRequest) returns (CheckReply);
+  
+  // Batch Validation
+  rpc ValidateBatch (BatchCheckRequest) returns (BatchCheckReply);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+message CheckRequest {
+  string artifact_id = 1;
+  string content = 2;
+  string artifact_type = 3;
+  repeated ValidationRule rules = 4;
+  map<string, string> context = 5;
+}
+
+message CheckReply {
+  bool is_valid = 1;
+  repeated string issues = 2;
+  double confidence_score = 3;
+  repeated ValidationResult results = 4;
+  string summary = 5;
+  int64 timestamp = 6;
+}
+
+message ValidationRule {
+  string rule_id = 1;
+  string rule_type = 2;  // e.g., "syntax", "security", "performance"
+  string description = 3;
+  map<string, string> parameters = 4;
+}
+
+message ValidationResult {
+  string rule_id = 1;
+  bool passed = 2;
+  string message = 3;
+  string severity = 4;  // "error", "warning", "info"
+  string location = 5;  // Line number or path
+}
+
+// --- Batch Validation ---
+
+message BatchCheckRequest {
+  repeated CheckRequest requests = 1;
+}
+
+message BatchCheckReply {
+  repeated CheckReply replies = 1;
+  int32 total_valid = 2;
+  int32 total_invalid = 3;
+}
+
+// --- Health Check ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+}

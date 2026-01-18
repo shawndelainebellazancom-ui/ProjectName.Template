@@ -1,42 +1,98 @@
 using Grpc.Core;
+using Microsoft.Agents.AI;
 using ProjectName.MakerService.Grpc;
+using System.Globalization;
+using System.Text;
 
 namespace ProjectName.MakerService.Services;
 
-/// <summary>
-/// Implements the Maker gRPC service responsible for materializing artifacts from execution plans.
-/// </summary>
-/// <remarks>
-/// Initializes a new instance of the <see cref="MakerService"/> class.
-/// </remarks>
-/// <param name="logger">The logger for observability.</param>
-public partial class MakerService(ILogger<MakerService> logger) : Maker.MakerBase
+public partial class MakerService(
+    AIAgent makerAgent,
+    ILogger<MakerService> logger) : Maker.MakerBase
 {
-    // --- Source Generated Logger ---
-    // This generates highly optimized code at compile time (Zero Allocation)
-    [LoggerMessage(
-        EventId = 100,
-        Level = LogLevel.Information,
-        Message = "gRPC MAKER: Received Plan {PlanId} for materialization")]
+    // --- HIGH PERFORMANCE LOGGING ---
+    [LoggerMessage(EventId = 100, Level = LogLevel.Information, Message = "gRPC MAKER: Received Plan {PlanId}. Delegating to Agent...")]
     private partial void LogPlanReceived(string planId);
 
-    /// <summary>
-    /// Generates an artifact based on the provided make request.
-    /// </summary>
-    /// <param name="request">The request containing plan ID, steps, and resources.</param>
-    /// <param name="context">The gRPC server call context.</param>
-    /// <returns>A reply containing the generated artifact details.</returns>
-    public override Task<MakeReply> MakeArtifact(MakeRequest request, ServerCallContext context)
+    [LoggerMessage(EventId = 101, Level = LogLevel.Error, Message = "Agent Generation Failed")]
+    private partial void LogAgentFailure(Exception ex);
+
+    public override async Task<MakeReply> MakeArtifact(MakeRequest request, ServerCallContext context)
     {
-        // Use the optimized logger delegate
         LogPlanReceived(request.PlanId);
 
-        // Simulation Logic
-        return Task.FromResult(new MakeReply
+        // 1. CONSTRUCT THE CONTEXT
+        var prompt = new StringBuilder();
+
+        // Fix CA1305: Use InvariantCulture
+        prompt.AppendFormat(CultureInfo.InvariantCulture, "--- EXECUTION PLAN (ID: {0}) ---", request.PlanId);
+        prompt.AppendLine();
+
+        foreach (var step in request.Steps)
         {
-            ArtifactId = Guid.NewGuid().ToString(),
-            Content = $"// Generated Artifact for Plan {request.PlanId}\n// Steps processed: {request.Steps.Count}",
-            ArtifactType = "Code/CSharp"
-        });
+            prompt.AppendFormat(CultureInfo.InvariantCulture, "STEP: {0}\n", step);
+        }
+        prompt.AppendLine();
+        prompt.AppendFormat(CultureInfo.InvariantCulture, "OUTPUT LANGUAGE: {0}\n", request.ArtifactType ?? "Code");
+
+        if (request.Resources.Count > 0)
+        {
+            prompt.AppendLine("CONTEXT:");
+            foreach (var r in request.Resources)
+            {
+                prompt.AppendFormat(CultureInfo.InvariantCulture, "{0}: {1}\n", r.Key, r.Value);
+            }
+        }
+
+        try
+        {
+            // 2. INVOKE THE AGENT
+            // The Agent Framework handles the message history, system prompt, and response parsing.
+            var response = await makerAgent.RunAsync(prompt.ToString(), cancellationToken: context.CancellationToken);
+
+            // 3. EXTRACT CONTENT
+            // The AgentRunResponse.ToString() usually returns the text, or we access the last message.
+            var content = response.ToString();
+
+            // 4. SANITIZE
+            content = CleanArtifact(content);
+
+            // 5. RETURN REALITY
+            return new MakeReply
+            {
+                ArtifactId = Guid.NewGuid().ToString(),
+                PlanId = request.PlanId,
+                Content = content,
+                ArtifactType = request.ArtifactType ?? "Text/Code",
+                Success = true
+            };
+        }
+        catch (Exception ex)
+        {
+            LogAgentFailure(ex);
+            return new MakeReply
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            };
+        }
+    }
+
+    private static string CleanArtifact(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input)) return string.Empty;
+
+        // Fix CA1310: Use StringComparison.Ordinal
+        var lines = input.Split('\n').ToList();
+
+        // Remove start fence (```python or just ```)
+        if (lines.Count > 0 && lines[0].Trim().StartsWith("```", StringComparison.Ordinal))
+            lines.RemoveAt(0);
+
+        // Remove end fence
+        if (lines.Count > 0 && lines[^1].Trim().StartsWith("```", StringComparison.Ordinal))
+            lines.RemoveAt(lines.Count - 1);
+
+        return string.Join("\n", lines).Trim();
     }
 }

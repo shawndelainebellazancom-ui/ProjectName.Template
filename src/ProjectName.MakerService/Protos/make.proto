@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProjectName.MakerService.Grpc";
+
+package maker;
+
+// =============================================================================
+// PMCR-O MAKER SERVICE
+// Phase M: Materialization - Converts plans into concrete artifacts
+// =============================================================================
+
+service Maker {
+  // Core Making Operation
+  rpc MakeArtifact (MakeRequest) returns (MakeReply);
+  
+  // Streaming variant for long-running generations
+  rpc StreamArtifact (MakeRequest) returns (stream MakeProgressUpdate);
+  
+  // Health Check
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// =============================================================================
+// REQUEST/RESPONSE MESSAGES
+// =============================================================================
+
+message MakeRequest {
+  string plan_id = 1;
+  repeated string steps = 2;
+  map<string, string> resources = 3;
+  string artifact_type = 4;  // e.g., "CSharp", "Python", "Markdown"
+  map<string, string> parameters = 5;
+}
+
+message MakeReply {
+  string artifact_id = 1;
+  string plan_id = 2;
+  string content = 3;
+  string artifact_type = 4;
+  map<string, string> metadata = 5;
+  int64 timestamp = 6;
+  bool success = 7;
+  string error_message = 8;
+}
+
+message MakeProgressUpdate {
+  enum Status {
+    STARTED = 0;
+    PROCESSING = 1;
+    COMPLETED = 2;
+    FAILED = 3;
+  }
+  
+  Status status = 1;
+  string message = 2;
+  int32 progress_percent = 3;
+  string partial_content = 4;
+}
+
+// --- Health Check ---
+
+message HealthCheckRequest {
+  string service_name = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+  string message = 2;
+}

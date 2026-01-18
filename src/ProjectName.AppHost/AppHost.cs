@@ -6,15 +6,18 @@ var maker = builder.AddProject<Projects.ProjectName_MakerService>("maker-service
 var checker = builder.AddProject<Projects.ProjectName_CheckerService>("checker-service");
 var reflector = builder.AddProject<Projects.ProjectName_ReflectorService>("reflector-service");
 
-// 2. Define Orchestrator (API Gateway)
-builder.AddProject<Projects.ProjectName_OrchestrationApi>("orchestration-api")
+// 2. Define MCP Server (Save to variable)
+var mcpServer = builder.AddProject<Projects.ProjectName_McpServer>("mcp-server")
     .WithReference(planner)
     .WithReference(maker)
     .WithReference(checker)
     .WithReference(reflector);
 
-// 3. Define MCP Server (Agent Interface)
-builder.AddProject<Projects.ProjectName_McpServer>("mcp-server")
+// 3. WIRE CHECKER TO MCP (Crucial Step)
+checker.WithReference(mcpServer);
+
+// 4. Define Orchestrator (API Gateway)
+builder.AddProject<Projects.ProjectName_OrchestrationApi>("orchestration-api")
     .WithReference(planner)
     .WithReference(maker)
     .WithReference(checker)

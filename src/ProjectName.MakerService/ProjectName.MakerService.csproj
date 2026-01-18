@@ -6,12 +6,15 @@
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
-
   <ItemGroup>
-	  <Protobuf Include="..\ProjectName.Shared\Protos\make.proto" GrpcServices="Server" Link="Protos\make.proto" />
-
-	  <PackageReference Include="Grpc.AspNetCore" />
+    <Protobuf Include="Protos\make.proto" GrpcServices="Server" />
+    <PackageReference Include="Grpc.AspNetCore" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    
+    <!-- THE MIND -->
+    <PackageReference Include="Microsoft.Extensions.AI" />
+    <PackageReference Include="OllamaSharp" />
+    <PackageReference Include="Microsoft.Agents.AI" />
   </ItemGroup>
 
   <ItemGroup>

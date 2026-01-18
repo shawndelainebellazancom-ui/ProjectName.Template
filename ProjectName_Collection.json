@@ -1,0 +1,205 @@
+{
+  "info": {
+    "_postman_id": "b3e54555-1234-4567-8901-abcdef123456",
+    "name": "PMCR-O System Validation (Aspire)",
+    "description": "Validation collection for ProjectName, aligned with .NET Aspire Dashboard ports.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Orchestrator (The Brain)",
+      "item": [
+        {
+          "name": "Run Full Cycle (P-M-C-R)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"intent-{{$guid}}\",\r\n  \"content\": \"Create a Python script that calculates the factorial of a number recursively.\",\r\n  \"context\": {\r\n    \"environment\": \"development\",\r\n    \"user_level\": \"expert\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/orchestrate/run-cycle",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "orchestrate",
+                "run-cycle"
+              ]
+            },
+            "description": "Triggers the full PMCR loop. Note: No /api prefix."
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{orchestrator_url}}/orchestrate/health",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "orchestrate",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Microservice Gateways",
+      "item": [
+        {
+          "name": "Planner: Create Plan",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"intent-manual-01\",\r\n  \"content\": \"Deploy a docker container with Nginx.\",\r\n  \"context\": {\r\n    \"os\": \"linux\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/planner",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "planner"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Maker: Make Artifact",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"plan-manual-01\",\r\n  \"originalIntentId\": \"intent-manual-01\",\r\n  \"steps\": [\r\n    \"Pull Nginx Image\",\r\n    \"Configure Port Mapping\",\r\n    \"Run Container\"\r\n  ],\r\n  \"resources\": {\r\n    \"runtime\": \"docker\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/maker",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "maker"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Checker: Validate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": \"artifact-manual-01\",\r\n  \"planId\": \"plan-manual-01\",\r\n  \"content\": \"docker run -d -p 80:80 nginx\",\r\n  \"artifactType\": \"Script/Bash\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/checker",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "checker"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reflector: Analyze",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"isValid\": false,\r\n  \"issues\": [\r\n    \"Security warning: running as root\",\r\n    \"Missing restart policy\"\r\n  ],\r\n  \"confidenceScore\": 65.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{orchestrator_url}}/reflector",
+              "host": [
+                "{{orchestrator_url}}"
+              ],
+              "path": [
+                "reflector"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. MCP Server (Diagnostic)",
+      "item": [
+        {
+          "name": "Ping MCP",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{mcp_url}}/",
+              "host": [
+                "{{mcp_url}}"
+              ],
+              "path": [
+                ""
+              ]
+            },
+            "description": "Checks if the MCP server container is reachable via HTTP."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "orchestrator_url",
+      "value": "https://orchestration-api-projectname.dev.localhost:7296",
+      "type": "string"
+    },
+    {
+      "key": "mcp_url",
+      "value": "https://mcp-server-projectname.dev.localhost:7184",
+      "type": "string"
+    }
+  ]
+}
